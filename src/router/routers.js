@@ -75,7 +75,8 @@ export default [
     name: 'pages',
     meta: {
       icon: 'logo-buffer',
-      title: '文章管理'
+      title: '文章管理',
+      hideInBread: true
     },
     component: Main,
     children: [
@@ -91,9 +92,31 @@ export default [
     ]
   },
   {
+    path: '/applications',
+    name: 'applications_host',
+    meta: {
+      icon: 'logo-buffer',
+      title: '申请',
+      hideInBread: true
+    },
+    component: Main,
+    children: [
+      {
+        path: '/',
+        name: 'applications',
+        meta: {
+          icon: 'logo-buffer',
+          title: '申请管理'
+        },
+        component: () => import('@/view/applications/index.vue')
+      }
+    ]
+  },
+  {
     path: '/components',
     name: 'components',
     meta: {
+      hideInMenu: true,
       icon: 'logo-buffer',
       title: '组件'
     },
@@ -214,7 +237,8 @@ export default [
     name: 'update',
     meta: {
       icon: 'md-cloud-upload',
-      title: '数据上传'
+      title: '数据上传',
+      hideInMenu: true
     },
     component: Main,
     children: [
@@ -243,6 +267,7 @@ export default [
     name: 'excel',
     meta: {
       icon: 'ios-stats',
+      hideInMenu: true,
       title: 'EXCEL导入导出'
     },
     component: Main,
@@ -271,7 +296,8 @@ export default [
     path: '/tools_methods',
     name: 'tools_methods',
     meta: {
-      hideInBread: true
+      hideInBread: true,
+      hideInMenu: true
     },
     component: Main,
     children: [
@@ -291,7 +317,8 @@ export default [
     path: '/i18n',
     name: 'i18n',
     meta: {
-      hideInBread: true
+      hideInBread: true,
+      hideInMenu: true
     },
     component: Main,
     children: [
@@ -310,7 +337,8 @@ export default [
     path: '/error_store',
     name: 'error_store',
     meta: {
-      hideInBread: true
+      hideInBread: true,
+      hideInMenu: true
     },
     component: Main,
     children: [
@@ -349,7 +377,8 @@ export default [
     path: '/directive',
     name: 'directive',
     meta: {
-      hideInBread: true
+      hideInBread: true,
+      hideInMenu: true
     },
     component: Main,
     children: [
@@ -369,7 +398,8 @@ export default [
     name: 'multilevel',
     meta: {
       icon: 'md-menu',
-      title: '多级菜单'
+      title: '多级菜单',
+      hideInMenu: true
     },
     component: Main,
     children: [

@@ -11,6 +11,7 @@ export default {
   img_cropper_page: 'Image-editor',
   update: 'Update',
   pages_index: 'Manage Pages',
+  applications: 'Manage Applications',
   doc: 'Document',
   join_page: 'QQ Group',
   update_table_page: 'Update .CSV',

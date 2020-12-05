@@ -20,6 +20,8 @@
   </Form>
 </template>
 <script>
+import { Message } from 'iview'
+
 export default {
   name: 'LoginForm',
   props: {
@@ -64,6 +66,10 @@ export default {
           this.$emit('on-success-valid', {
             userName: this.form.userName,
             password: this.form.password
+          })
+        } else {
+          Message.error({
+            content: '密码错误'
           })
         }
       })

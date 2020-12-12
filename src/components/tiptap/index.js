@@ -1,2 +1,3 @@
-import TipTapEditor from './index.vue'
-export default TipTapEditor
+import TiptapEditor from './tiptap.vue'
+
+export default TiptapEditor

@@ -27,6 +27,7 @@ import {
 } from 'tiptap-extensions'
 
 export default {
+  name: 'TiptapEditor',
   components: {
     EditorContent,
     EditorMenuBar
@@ -35,11 +36,18 @@ export default {
   props: {
     value: {
       type: String,
-      default: ''
+      default: '{}'
     }
   },
 
   data () {
+    var initValue = {}
+    try {
+      initValue = JSON.parse(this.value)
+    } catch (error) {
+      console.log(error)
+      initValue = {}
+    }
     return {
       editor: new Editor({
         extensions: [
@@ -47,15 +55,11 @@ export default {
           new Link(),
           new History()
         ],
-        content: this.value,
+        content: initValue,
         onUpdate: ({ getJSON, getHTML }) => {
-          this.json = getJSON()
-          console.log(this.json)
-          this.html = getHTML()
+          this.$emit('input', JSON.stringify(getJSON()))
         }
-      }),
-      json: '',
-      html: ''
+      })
     }
   },
 

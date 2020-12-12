@@ -18,7 +18,19 @@
           label-position="top"
         >
           <FormItem label="新闻标题">
-            <Input v-model="formRight.input1" />
+            <Input v-model="editNews.title" />
+          </FormItem>
+          <FormItem label="分类">
+            <Select v-model="editNews.tabId">
+              <Option
+                v-for="tab in tabs"
+                :key="tab.id"
+                :value="tab.id"
+              >{{ tab.tabName }}</Option>
+            </Select>
+          </FormItem>
+          <FormItem label="新闻内容">
+            <tip-tap-editor v-model="editNews.content" />
           </FormItem>
         </Form>
       </Modal>
@@ -28,8 +40,13 @@
 
 <script>
 import axios from '@/libs/api.request'
+import TipTapEditor from '_c/tiptap'
 
 export default {
+  components: {
+    TipTapEditor
+  },
+
   data () {
     return {
       creaetNewsModalVisible: false,
@@ -37,7 +54,7 @@ export default {
       tabs: [],
       editNews: {
         title: '',
-        content: '',
+        content: '{}',
         keyword: [],
         picture: '',
         tabId: '',
@@ -77,7 +94,7 @@ export default {
       delete newsdata.id
       return axios.request({
         url: '/admin/news/create',
-        data: JSON.stringify(newsdata),
+        data: newsdata,
         method: 'post'
       }).then(({ data }) => {
         this.news.push({

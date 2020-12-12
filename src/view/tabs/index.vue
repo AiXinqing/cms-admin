@@ -112,8 +112,8 @@ export default {
       return axios.request({
         url: '/admin/tab/list',
         method: 'get'
-      }).then((res) => {
-        debugger
+      }).then(({ data }) => {
+        this.tabs = data
       })
     },
 
@@ -130,8 +130,14 @@ export default {
             tabOrder: this.tabs.length
           },
           method: 'post'
-        }).then((res) => {
-          debugger
+        }).then(({ data }) => {
+          this.tabs.push({
+            tabName: this.editTab.tabName,
+            tabType: this.editTab.tabType,
+            tabOrder: this.tabs.length,
+            id: data.id
+          })
+          this.resetEditTab()
         })
       }
     },
@@ -139,6 +145,14 @@ export default {
     removeTab (tab) {
       // 暂时无法删除
       // axios.request({})
+    },
+
+    resetEditTab () {
+      this.editTab = {
+        tabName: '',
+        tabType: 1,
+        id: ''
+      }
     },
 
     _findTabType (tabType) {

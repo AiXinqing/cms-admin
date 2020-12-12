@@ -7,7 +7,6 @@
       style="display: none;"
       @change="uploadFile"
     >
-    <div v-if="file">{{ file.name }}</div>
     <Button
       type="primary"
       size="small"

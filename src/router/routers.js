@@ -96,7 +96,7 @@ export default [
     name: 'news',
     meta: {
       icon: 'logo-buffer',
-      title: '文章管理',
+      title: '新闻',
       hideInBread: true
     },
     component: Main,
@@ -106,7 +106,7 @@ export default [
         name: 'news_index',
         meta: {
           icon: 'logo-buffer',
-          title: '文章管理'
+          title: '新闻列表'
         },
         component: () => import('@/view/news/index.vue')
       },
@@ -115,9 +115,7 @@ export default [
         name: 'news_create',
         meta: {
           icon: 'logo-buffer',
-          title: '新建文章',
-          hideInMenu: true,
-          hideInBread: true
+          title: '发布新闻'
         },
         component: () => import('@/view/news/new.vue')
       }

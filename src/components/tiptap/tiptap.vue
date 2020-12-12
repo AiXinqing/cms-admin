@@ -21,16 +21,11 @@
       </div>
     </editor-menu-bar>
     <editor-content class="editor__content" :editor="editor" />
-    <Modal
-      v-model="fileUploadModal"
-      title="图片选择"
-      footer-hide
-    >
-      <file-upload
-        accept="images/*"
-        @change="insertImage"
-      />
-    </Modal>
+    <file-upload
+      ref="fileUpload"
+      v-show="false"
+      @change="insertImage"
+    />
   </div>
 </template>
 
@@ -74,9 +69,7 @@ export default {
       initValue = {}
     }
     return {
-      fileUploadModal: false,
       command: null,
-      file: '',
       editor: new Editor({
         extensions: [
           new Heading({ level: [2] }),
@@ -115,7 +108,7 @@ export default {
 
     selectFile (command) {
       this.command = command
-      this.fileUploadModal = true
+      this.$refs.fileUpload.openFilePickerDialog()
     },
 
     insertImage (src) {
@@ -123,7 +116,6 @@ export default {
         this.command({ src })
         this.command = null
       }
-      this.fileUploadModal = false
     },
 
     encodeValue () {},

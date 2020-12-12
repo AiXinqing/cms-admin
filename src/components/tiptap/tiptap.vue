@@ -1,10 +1,10 @@
 <template>
   <div class="editor">
-    <div class="editor-menu-bar">
-      <editor-menu-bar
-        :editor="editor"
-        v-slot="{ commands, isActive }"
-      >
+    <editor-menu-bar
+      :editor="editor"
+      v-slot="{ commands, isActive }"
+    >
+      <div class="editor-menu-bar">
         <div
           :class="{ 'menu-item-active': isActive.heading({ level: 2 }) }"
           class="menu-item"
@@ -12,8 +12,15 @@
         >
           <Icon type="md-reorder" />
         </div>
-      </editor-menu-bar>
-    </div>
+        <div
+          :class="{ 'menu-item-active': isActive.heading({ level: 2 }) }"
+          class="menu-item"
+          @click="commands.heading({ level: 2 })"
+        >
+          <Icon type="md-reorder" />
+        </div>
+      </div>
+    </editor-menu-bar>
     <editor-content class="editor__content" :editor="editor" />
   </div>
 </template>
@@ -23,11 +30,12 @@ import { Editor, EditorContent, EditorMenuBar } from 'tiptap'
 import {
   Heading,
   Link,
-  History
+  Placeholder
 } from 'tiptap-extensions'
 
 export default {
   name: 'TiptapEditor',
+
   components: {
     EditorContent,
     EditorMenuBar
@@ -37,6 +45,11 @@ export default {
     value: {
       type: String,
       default: '{}'
+    },
+
+    placeholder: {
+      type: String,
+      default: '请输入'
     }
   },
 
@@ -53,7 +66,13 @@ export default {
         extensions: [
           new Heading({ level: [2] }),
           new Link(),
-          new History()
+          new Placeholder({
+            emptyEditorClass: 'is-editor-empty',
+            emptyNodeClass: 'is-empty',
+            emptyNodeText: this.placeholder,
+            showOnlyWhenEditable: false,
+            showOnlyCurrent: false
+          })
         ],
         content: initValue,
         onUpdate: ({ getJSON, getHTML }) => {
@@ -72,6 +91,10 @@ export default {
     setContent (value) {
       this.editor.setContent(value, true)
       this.editor.focus()
+    },
+
+    beforeDestroy () {
+      this.editor.destroy()
     },
 
     encodeValue () {},
@@ -111,6 +134,15 @@ export default {
   .editor__content {
     border: 1px solid #dddddd;
     margin-top: -1px;
+  }
+
+  p.is-editor-empty:first-child::before {
+    content: attr(data-empty-text);
+    float: left;
+    color: #aaa;
+    pointer-events: none;
+    height: 0;
+    font-style: italic;
   }
 }
 </style>

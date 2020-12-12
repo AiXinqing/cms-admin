@@ -18,7 +18,10 @@
           label-position="top"
         >
           <FormItem label="新闻标题">
-            <Input v-model="editNews.title" />
+            <Input
+              v-model="editNews.title"
+              placeholder="请输入"
+            />
           </FormItem>
           <FormItem label="分类">
             <Select v-model="editNews.tabId">

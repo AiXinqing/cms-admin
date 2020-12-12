@@ -92,8 +92,8 @@ export default [
     ]
   },
   {
-    path: '/pages',
-    name: 'pages',
+    path: '/news',
+    name: 'news',
     meta: {
       icon: 'logo-buffer',
       title: '文章管理',
@@ -103,12 +103,12 @@ export default [
     children: [
       {
         path: '/',
-        name: 'pages_index',
+        name: 'news_index',
         meta: {
           icon: 'logo-buffer',
           title: '文章管理'
         },
-        component: () => import('@/view/pages/index.vue')
+        component: () => import('@/view/news/index.vue')
       }
     ]
   },

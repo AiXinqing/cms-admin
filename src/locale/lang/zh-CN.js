@@ -11,7 +11,7 @@ export default {
   img_cropper_page: '图片编辑器',
   update: '上传数据',
   join_page: 'QQ群',
-  pages_index: '文章管理',
+  news_index: '文章管理',
   applications: '申请管理',
   tabs_index: '分类管理',
   doc: '文档',

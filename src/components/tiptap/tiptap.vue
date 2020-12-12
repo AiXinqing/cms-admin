@@ -13,15 +13,24 @@
           <Icon type="md-reorder" />
         </div>
         <div
-          :class="{ 'menu-item-active': isActive.heading({ level: 2 }) }"
           class="menu-item"
-          @click="commands.heading({ level: 2 })"
+          @click="selectFile(commands.image)"
         >
           <Icon type="md-images" />
         </div>
       </div>
     </editor-menu-bar>
     <editor-content class="editor__content" :editor="editor" />
+    <Modal
+      v-model="fileUploadModal"
+      title="图片选择"
+      footer-hide
+    >
+      <file-upload
+        accept="images/*"
+        @change="insertImage"
+      />
+    </Modal>
   </div>
 </template>
 
@@ -30,15 +39,18 @@ import { Editor, EditorContent, EditorMenuBar } from 'tiptap'
 import {
   Heading,
   Link,
+  Image,
   Placeholder
 } from 'tiptap-extensions'
+import FileUpload from '_c/file-upload'
 
 export default {
   name: 'TiptapEditor',
 
   components: {
     EditorContent,
-    EditorMenuBar
+    EditorMenuBar,
+    FileUpload
   },
 
   props: {
@@ -62,10 +74,14 @@ export default {
       initValue = {}
     }
     return {
+      fileUploadModal: false,
+      command: null,
+      file: '',
       editor: new Editor({
         extensions: [
           new Heading({ level: [2] }),
           new Link(),
+          new Image(),
           new Placeholder({
             emptyEditorClass: 'is-editor-empty',
             emptyNodeClass: 'is-empty',
@@ -95,6 +111,19 @@ export default {
 
     beforeDestroy () {
       this.editor.destroy()
+    },
+
+    selectFile (command) {
+      this.command = command
+      this.fileUploadModal = true
+    },
+
+    insertImage (src) {
+      if (this.command) {
+        this.command({ src })
+        this.command = null
+      }
+      this.fileUploadModal = false
     },
 
     encodeValue () {},
@@ -129,11 +158,14 @@ export default {
     align-items: center;
     justify-content: center;
     font-size: 18px;
+    cursor: pointer;
   }
 
   .editor__content {
     border: 1px solid #dddddd;
     margin-top: -1px;
+    min-height: 240px;
+    background-color: white;
   }
 
   p.is-editor-empty:first-child::before {

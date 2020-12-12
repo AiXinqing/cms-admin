@@ -4,7 +4,7 @@
       ref="fileInput"
       :accept="accept"
       type="file"
-      class="display: none;"
+      style="display: none;"
       @change="uploadFile"
     >
     <div v-if="file">{{ file.name }}</div>
@@ -53,7 +53,7 @@ export default {
           data
         }).then(({ data }) => {
           this.$refs.fileInput.value = ''
-          this.$emit('change', data.id)
+          this.$emit('change', `/file/download?fileId=${data.id}`)
           console.log('file uploaded', data)
         }).finally(() => {
           this.uploading = false

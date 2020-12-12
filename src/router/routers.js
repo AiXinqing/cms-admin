@@ -111,7 +111,7 @@ export default [
         component: () => import('@/view/news/index.vue')
       },
       {
-        path: 'news_create',
+        path: 'create',
         name: 'news_create',
         meta: {
           icon: 'logo-buffer',

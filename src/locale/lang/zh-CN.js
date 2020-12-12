@@ -12,6 +12,7 @@ export default {
   update: '上传数据',
   join_page: 'QQ群',
   news_index: '文章管理',
+  news_create: '新建文章',
   applications: '申请管理',
   tabs_index: '分类管理',
   doc: '文档',

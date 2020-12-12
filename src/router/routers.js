@@ -109,6 +109,17 @@ export default [
           title: '文章管理'
         },
         component: () => import('@/view/news/index.vue')
+      },
+      {
+        path: 'news_create',
+        name: 'news_create',
+        meta: {
+          icon: 'logo-buffer',
+          title: '新建文章',
+          hideInMenu: true,
+          hideInBread: true
+        },
+        component: () => import('@/view/news/new.vue')
       }
     ]
   },

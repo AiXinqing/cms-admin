@@ -12,6 +12,7 @@ export default {
   update: 'Update',
   tabs_index: 'Manage Tabs',
   news_index: 'Manage Pages',
+  news_create: 'Create News',
   applications: 'Manage Applications',
   doc: 'Document',
   join_page: 'QQ Group',

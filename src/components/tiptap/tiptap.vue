@@ -17,7 +17,7 @@
           class="menu-item"
           @click="commands.heading({ level: 2 })"
         >
-          <Icon type="md-reorder" />
+          <Icon type="md-images" />
         </div>
       </div>
     </editor-menu-bar>

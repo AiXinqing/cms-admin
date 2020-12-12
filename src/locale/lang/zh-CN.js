@@ -13,6 +13,7 @@ export default {
   join_page: 'QQ群',
   pages_index: '文章管理',
   applications: '申请管理',
+  tabs_index: '分类管理',
   doc: '文档',
   update_table_page: '上传CSV文件',
   update_paste_page: '粘贴表格数据',

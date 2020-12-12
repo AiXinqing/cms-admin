@@ -71,6 +71,27 @@ export default [
     ]
   },
   {
+    path: '/tabs',
+    name: 'tabs',
+    meta: {
+      icon: 'logo-buffer',
+      title: '分类管理',
+      hideInBread: true
+    },
+    component: Main,
+    children: [
+      {
+        path: '/',
+        name: 'tabs_index',
+        meta: {
+          icon: 'logo-buffer',
+          title: '分类管理'
+        },
+        component: () => import('@/view/tabs/index.vue')
+      }
+    ]
+  },
+  {
     path: '/pages',
     name: 'pages',
     meta: {

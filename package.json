@@ -24,6 +24,8 @@
     "js-cookie": "^2.2.0",
     "simplemde": "^1.11.2",
     "sortablejs": "^1.7.0",
+    "tiptap": "^1.30.0",
+    "tiptap-extensions": "^1.33.2",
     "tree-table-vue": "^1.1.0",
     "v-org-tree": "^1.0.6",
     "vue": "^2.5.10",
@@ -48,6 +50,9 @@
     "lint-staged": "^6.0.0",
     "mockjs": "^1.0.1-beta3",
     "vue-template-compiler": "^2.5.13"
+  },
+  "resolutions": {
+    "prosemirror-model": "1.9.1"
   },
   "browserslist": [
     "> 1%",

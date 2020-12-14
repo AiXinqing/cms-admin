@@ -41,11 +41,12 @@
       </template>
       <template slot="action" slot-scope="{ row }">
         <Button
-          type="error"
+          type="primary"
           size="small"
-          @click="removeTab(row)"
+          style="margin-right: 10px;"
+          @click="openEditTab(row)"
         >
-          删除
+          修改
         </Button>
       </template>
     </Table>
@@ -71,7 +72,7 @@ export default {
         },
         {
           slot: 'action',
-          width: 150,
+          width: 250,
           align: 'center',
           title: '操作'
         }
@@ -80,7 +81,7 @@ export default {
       editTab: {
         tabName: '',
         tabType: 1,
-        id: ''
+        tabId: ''
       },
       tabTypes: [
         {
@@ -113,13 +114,31 @@ export default {
         url: '/admin/tab/list',
         method: 'get'
       }).then(({ data }) => {
-        this.tabs = data
+        this.tabs = data.data
       })
     },
 
+    openEditTab (tab) {
+      this.editTab = {
+        ...tab
+      }
+      this.createTabModalVisible = true
+    },
+
     addTab () {
-      if (this.editTab.id) {
+      if (this.editTab.tabId) {
         // TODO update tab
+        axios.request({
+          url: '/admin/tab/update',
+          method: 'post',
+          data: {
+            ...this.editTab
+          }
+        }).then(({ data }) => {
+          const oldTabIndex = this.tabs.findIndex(tab => tab.tabId === this.editTab.tabId)
+          this.tabs.splice(oldTabIndex, 1, this.editTab)
+          this.resetEditTab()
+        })
       } else {
         // create tab
         axios.request({
@@ -135,16 +154,11 @@ export default {
             tabName: this.editTab.tabName,
             tabType: this.editTab.tabType,
             tabOrder: this.tabs.length,
-            id: data.id
+            tabId: data.data.tabId
           })
           this.resetEditTab()
         })
       }
-    },
-
-    removeTab (tab) {
-      // 暂时无法删除
-      // axios.request({})
     },
 
     resetEditTab () {

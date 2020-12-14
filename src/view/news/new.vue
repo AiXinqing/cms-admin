@@ -10,11 +10,14 @@
       />
     </FormItem>
     <FormItem label="分类">
-      <Select v-model="news.tabId">
+      <Select
+        v-model="news.tabId"
+        placeholder="请选择"
+      >
         <Option
           v-for="tab in tabs"
-          :key="tab.id"
-          :value="tab.id"
+          :key="tab.tabId"
+          :value="tab.tabId"
         >{{ tab.tabName }}</Option>
       </Select>
     </FormItem>
@@ -65,7 +68,7 @@ export default {
         url: '/admin/tab/list',
         method: 'get'
       }).then(({ data }) => {
-        this.tabs = data
+        this.tabs = data.data
       })
     },
 
@@ -73,6 +76,7 @@ export default {
       const newsdata = {
         ...this.news
       }
+      debugger
       delete newsdata.id
       return axios.request({
         url: '/admin/news/create',
@@ -81,7 +85,7 @@ export default {
       }).then(({ data }) => {
         this.news.push({
           ...newsdata,
-          id: data.id
+          id: data.data.id
         })
       })
     }

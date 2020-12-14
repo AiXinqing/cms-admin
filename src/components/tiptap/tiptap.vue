@@ -20,7 +20,11 @@
         </div>
       </div>
     </editor-menu-bar>
-    <editor-content class="editor__content" :editor="editor" />
+    <editor-content
+      class="editor__content"
+      :editor="editor"
+      @click.native.stop="focusEditor"
+    />
     <file-upload
       ref="fileUpload"
       v-show="false"
@@ -84,7 +88,7 @@ export default {
           })
         ],
         content: initValue,
-        onUpdate: ({ getJSON, getHTML }) => {
+        onUpdate: ({ getJSON }) => {
           this.$emit('input', JSON.stringify(getJSON()))
         }
       })
@@ -104,6 +108,10 @@ export default {
 
     beforeDestroy () {
       this.editor.destroy()
+    },
+
+    focusEditor () {
+      this.editor.focus()
     },
 
     selectFile (command) {
@@ -127,11 +135,15 @@ export default {
 
 <style lang="less">
 .ProseMirror {
-  padding: 0px 10px;
+  padding: 5px 10px;
   outline: none;
 
   &:focus {
     outline: none;
+  }
+
+  img {
+    max-width: 100%;
   }
 }
 
@@ -141,6 +153,7 @@ export default {
     flex-direction: row;
     border: 1px solid #dddddd;
     width: 100%;
+    padding: 5px;
   }
 
   .menu-item {
@@ -151,6 +164,26 @@ export default {
     justify-content: center;
     font-size: 18px;
     cursor: pointer;
+    margin-left: 5px;
+    border-radius: 2px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:hover {
+      background-color: transparent;
+      border: 1px solid #dddddd;
+    }
+
+    &.menu-item-active {
+      border: 1px solid #dddddd;
+      background-color: white;
+
+      &:hover {
+        background-color: white;
+      }
+    }
   }
 
   .editor__content {
@@ -158,6 +191,7 @@ export default {
     margin-top: -1px;
     min-height: 240px;
     background-color: white;
+    font-size: 16px;
   }
 
   p.is-editor-empty:first-child::before {

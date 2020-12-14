@@ -51,9 +51,9 @@ export default {
           method: 'post',
           data
         }).then(({ data }) => {
+          const [, fileId] = data.data.match(/fileId=(.+)/)
           this.$refs.fileInput.value = ''
-          this.$emit('change', `/file/download?fileId=${data.id}`)
-          console.log('file uploaded', data)
+          this.$emit('change', `http://47.94.33.237:8081/file/download?fileId=${fileId}`)
         }).finally(() => {
           this.uploading = false
         })

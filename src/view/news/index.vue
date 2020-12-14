@@ -22,17 +22,8 @@ export default {
 
   data () {
     return {
-      creaetNewsModalVisible: false,
-      news: [],
-      tabs: [],
-      editNews: {
-        title: '',
-        content: '{}',
-        keyword: [],
-        picture: '',
-        tabId: '',
-        id: ''
-      }
+      newsList: [],
+      tabs: []
     }
   },
 
@@ -48,14 +39,6 @@ export default {
       }).then(({ data }) => {
         this.tabs = data
       })
-    },
-
-    saveNews () {
-      if (this.editNews.id) {
-        this.updateNews()
-      } else {
-        this.createNews()
-      }
     },
 
     updateNews () {},

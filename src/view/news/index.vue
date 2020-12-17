@@ -76,7 +76,9 @@ export default {
     },
 
     _findTab (id) {
-      return this.tabs.find(tab => tab.tabId === id)
+      return this.tabs.find(tab => tab.tabId === id) || {
+        tabName: ''
+      }
     },
 
     updateNews () {},

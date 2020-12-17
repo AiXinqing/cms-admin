@@ -62,7 +62,7 @@ export default {
     handleSubmit () {
       this.$refs.loginForm.validate((valid) => {
         // TODO: validate name and password
-        if (valid && (this.form.password === '123456')) {
+        if (valid) {
           this.$emit('on-success-valid', {
             userName: this.form.userName,
             password: this.form.password

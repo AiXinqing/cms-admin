@@ -76,16 +76,14 @@ export default {
       const newsdata = {
         ...this.news
       }
-      debugger
       delete newsdata.id
       return axios.request({
         url: '/admin/news/create',
         data: newsdata,
         method: 'post'
       }).then(({ data }) => {
-        this.news.push({
-          ...newsdata,
-          id: data.data.id
+        this.$router.push({
+          name: 'news_index'
         })
       })
     }

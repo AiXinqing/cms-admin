@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div class="news-btn-wrapper">
       <button
         class="ivu-btn ivu-btn-primary"
         @click.stop="createNews"
@@ -29,6 +29,7 @@ export default {
 
   created () {
     this.fetchTabs()
+    this.fetchNews()
   },
 
   methods: {
@@ -37,7 +38,16 @@ export default {
         url: '/admin/tab/list',
         method: 'get'
       }).then(({ data }) => {
-        this.tabs = data
+        this.tabs = data.data
+      })
+    },
+
+    fetchNews () {
+      return axios.request({
+        url: '/admin/news/list',
+        method: 'post'
+      }).then(({ data }) => {
+        this.newsList = data.data
       })
     },
 
@@ -51,3 +61,10 @@ export default {
   }
 }
 </script>
+
+<style lang="less" scoped>
+.news-btn-wrapper {
+  margin-bottom: 20px;
+  text-align: right;
+}
+</style>

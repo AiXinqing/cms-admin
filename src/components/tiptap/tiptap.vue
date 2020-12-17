@@ -6,6 +6,13 @@
     >
       <div class="editor-menu-bar">
         <div
+          :class="{ 'menu-item-active': isActive.bold() }"
+          class="menu-item"
+          @click="commands.bold()"
+        >
+          <Icon custom="i-icon i-icon-text-bold" />
+        </div>
+        <div
           :class="{ 'menu-item-active': isActive.heading({ level: 2 }) }"
           class="menu-item"
           @click="commands.heading({ level: 2 })"
@@ -16,7 +23,7 @@
           class="menu-item"
           @click="selectFile(commands.image)"
         >
-          <Icon type="md-images" />
+          <Icon custom="i-icon i-icon-image" />
         </div>
       </div>
     </editor-menu-bar>
@@ -39,6 +46,7 @@ import {
   Heading,
   Link,
   Image,
+  Bold,
   Placeholder
 } from 'tiptap-extensions'
 import FileUpload from '_c/file-upload'
@@ -78,6 +86,7 @@ export default {
         extensions: [
           new Heading({ level: [2] }),
           new Link(),
+          new Bold(),
           new Image(),
           new Placeholder({
             emptyEditorClass: 'is-editor-empty',

@@ -13,6 +13,20 @@
           <Icon custom="i-icon i-icon-text-bold" />
         </div>
         <div
+          :class="{ 'menu-item-active': isActive.strike() }"
+          class="menu-item"
+          @click="commands.strike()"
+        >
+          <Icon custom="i-icon i-icon-text-strikethrough" />
+        </div>
+        <div
+          :class="{ 'menu-item-active': isActive.italic() }"
+          class="menu-item"
+          @click="commands.italic()"
+        >
+          <Icon custom="i-icon i-icon-text-italic" />
+        </div>
+        <div
           :class="{ 'menu-item-active': isActive.heading({ level: 2 }) }"
           class="menu-item"
           @click="commands.heading({ level: 2 })"
@@ -47,6 +61,8 @@ import {
   Link,
   Image,
   Bold,
+  Strike,
+  Italic,
   Placeholder
 } from 'tiptap-extensions'
 import FileUpload from '_c/file-upload'
@@ -87,6 +103,8 @@ export default {
           new Heading({ level: [2] }),
           new Link(),
           new Bold(),
+          new Strike(),
+          new Italic(),
           new Image(),
           new Placeholder({
             emptyEditorClass: 'is-editor-empty',

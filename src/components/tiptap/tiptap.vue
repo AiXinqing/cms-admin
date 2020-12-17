@@ -27,6 +27,13 @@
           <Icon custom="i-icon i-icon-text-italic" />
         </div>
         <div
+          :class="{ 'menu-item-active': isActive.underline() }"
+          class="menu-item"
+          @click="commands.underline()"
+        >
+          <Icon custom="i-icon i-icon-text-underline" />
+        </div>
+        <div
           :class="{ 'menu-item-active': isActive.heading({ level: 2 }) }"
           class="menu-item"
           @click="commands.heading({ level: 2 })"
@@ -63,6 +70,7 @@ import {
   Bold,
   Strike,
   Italic,
+  Underline,
   Placeholder
 } from 'tiptap-extensions'
 import FileUpload from '_c/file-upload'
@@ -106,6 +114,7 @@ export default {
           new Strike(),
           new Italic(),
           new Image(),
+          new Underline(),
           new Placeholder({
             emptyEditorClass: 'is-editor-empty',
             emptyNodeClass: 'is-empty',

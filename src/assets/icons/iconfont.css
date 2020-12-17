@@ -35,3 +35,72 @@
 
 .icon-woman:before { content: "\e7e5"; }
 
+@font-face {
+  font-family: 'editor';
+  src:
+    url('editor-icons.ttf') format('truetype'),
+    url('editor-icons.woff') format('woff'),
+    url('editor-icons.svg#editor') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+.i-icon {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'editor' !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  display: inline-block;
+  vertical-align: middle;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.i-icon-minus:before {
+  content: "\e9a3";
+}
+.i-icon-text-bold:before {
+  content: "\e96a";
+}
+.i-icon-text-underline:before {
+  content: "\e969";
+}
+.i-icon-text-italic:before {
+  content: "\e967";
+}
+.i-icon-text-strikethrough:before {
+  content: "\e968";
+}
+.i-icon-cube:before {
+  content: "\e958";
+}
+.i-icon-cubes:before {
+  content: "\e959";
+}
+.i-icon-image:before {
+  content: "\e95b";
+}
+.i-icon-video:before {
+  content: "\e96b";
+}
+.i-icon-quote:before {
+  content: "\e962";
+}
+.i-icon-table:before {
+  content: "\e964";
+}
+.i-icon-link:before {
+  content: "\e95e";
+}
+.i-icon-list-ol:before {
+  content: "\e95f";
+}
+.i-icon-list-ul:before {
+  content: "\e960";
+}

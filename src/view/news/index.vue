@@ -8,6 +8,14 @@
         新建新闻
       </button>
     </div>
+    <Table
+      :columns="$options.newsHeaders"
+      :data="newsList"
+    >
+      <template slot="tabId" slot-scope="{ row }">
+        {{ _findTab(row.tabId).tabName }}
+      </template>
+    </Table>
   </div>
 </template>
 
@@ -19,6 +27,22 @@ export default {
   components: {
     TipTapEditor
   },
+
+  newsHeaders: [
+    {
+      key: 'id',
+      title: '新闻id'
+    },
+    {
+      key: 'title',
+      title: '新闻标题'
+    },
+    {
+      key: 'tabId',
+      title: '分类名称',
+      slot: 'tabId'
+    }
+  ],
 
   data () {
     return {
@@ -49,6 +73,10 @@ export default {
       }).then(({ data }) => {
         this.newsList = data.data
       })
+    },
+
+    _findTab (id) {
+      return this.tabs.find(tab => tab.tabId === id)
     },
 
     updateNews () {},

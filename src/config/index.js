@@ -36,12 +36,12 @@ export default {
 
   tabTypes: [
     {
-      value: 1,
-      label: '热点'
-    },
-    {
       value: 2,
       label: '新闻'
+    },
+    {
+      value: 5,
+      label: '看看号'
     },
     {
       value: 3,

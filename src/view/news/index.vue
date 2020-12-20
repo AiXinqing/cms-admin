@@ -25,6 +25,13 @@
           class="action-button"
           @click="setAsHot(row)"
         >设为热点</Button>
+        <Button
+          v-if="!row.isHot"
+          type="info"
+          size="small"
+          class="action-button"
+          @click="setAsHeadline(row)"
+        >设为头条</Button>
       </template>
     </Table>
     <Modal
@@ -60,7 +67,8 @@ export default {
   newsHeaders: [
     {
       key: 'id',
-      title: '新闻id'
+      title: '新闻id',
+      width: 80
     },
     {
       key: 'title',
@@ -69,15 +77,18 @@ export default {
     {
       key: 'tabId',
       title: '分类名称',
-      slot: 'tabId'
+      slot: 'tabId',
+      width: 120
     },
     {
       key: 'approval',
       title: '审核状态',
-      slot: 'approval'
+      slot: 'approval',
+      width: 120
     },
     {
       title: '操作',
+      width: 300,
       slot: 'actions'
     }
   ],
@@ -175,6 +186,8 @@ export default {
         })
       })
     },
+
+    setAsHeadline (news) {},
 
     _findTab (id) {
       return this.tabs.find(tab => tab.tabId === id) || {

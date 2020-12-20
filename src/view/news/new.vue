@@ -27,7 +27,7 @@
     <FormItem label="分类">
       <Select
         v-model="news.tabId"
-        placeholder="请选择"
+        :placeholder="tabPlaceholder"
       >
         <Option
           v-for="tab in tabs"
@@ -75,6 +75,14 @@ export default {
     }
   },
 
+  computed: {
+    tabPlaceholder () {
+      return this.tabs.length
+        ? '请选择'
+        : '没有可选的分类，请先添加分类'
+    }
+  },
+
   created () {
     this.fetchTabs()
   },
@@ -85,7 +93,7 @@ export default {
         url: '/admin/tab/list',
         method: 'get'
       }).then(({ data }) => {
-        this.tabs = data.data
+        this.tabs = data.data.filter((tab) => tab.tabType === 2)
       })
     },
 

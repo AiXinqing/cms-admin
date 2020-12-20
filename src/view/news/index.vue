@@ -187,7 +187,23 @@ export default {
       })
     },
 
-    setAsHeadline (news) {},
+    setAsHeadline (news) {
+      axios.request({
+        url: '/admin/headerLine/headerLineItem',
+        method: 'post',
+        data: {
+          itemId: news.id,
+          itemType: news.resourceType || 1 // 新闻
+        }
+      }).then(() => {
+        this.$set(news, 'isHeaderLine', true)
+        this.$Message.success({ content: '设置成功' })
+      }).catch(() => {
+        this.$Message.error({
+          content: '设置失败'
+        })
+      })
+    },
 
     _findTab (id) {
       return this.tabs.find(tab => tab.tabId === id) || {

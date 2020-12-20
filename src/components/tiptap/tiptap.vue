@@ -2,6 +2,7 @@
   <div class="editor">
     <editor-menu-bar
       :editor="editor"
+      v-if="!readonly"
       v-slot="{ commands, isActive }"
     >
       <div class="editor-menu-bar">
@@ -49,11 +50,14 @@
       </div>
     </editor-menu-bar>
     <editor-content
-      class="editor__content"
+      :class="{ readonly: readonly }"
       :editor="editor"
+      :style="{ minHeight: minHeight }"
+      class="editor__content"
       @click.native.stop="focusEditor"
     />
     <file-upload
+      v-if="!readonly"
       ref="fileUpload"
       accept="images/*"
       v-show="false"
@@ -94,6 +98,16 @@ export default {
     placeholder: {
       type: String,
       default: '请输入'
+    },
+
+    readonly: {
+      type: Boolean,
+      default: false
+    },
+
+    minHeight: {
+      type: String,
+      default: '240px'
     }
   },
 
@@ -105,30 +119,50 @@ export default {
       console.log(error)
       initValue = {}
     }
+
+    const extensions = [
+      new Heading({ level: [2] }),
+      new Link(),
+      new Bold(),
+      new Strike(),
+      new Italic(),
+      new Image(),
+      new Underline()
+    ]
+    if (!this.readonly) {
+      extensions.push(
+        new Placeholder({
+          emptyEditorClass: 'is-editor-empty',
+          emptyNodeClass: 'is-empty',
+          emptyNodeText: this.placeholder,
+          showOnlyWhenEditable: false,
+          showOnlyCurrent: false
+        })
+      )
+    }
     return {
       command: null,
       editor: new Editor({
-        extensions: [
-          new Heading({ level: [2] }),
-          new Link(),
-          new Bold(),
-          new Strike(),
-          new Italic(),
-          new Image(),
-          new Underline(),
-          new Placeholder({
-            emptyEditorClass: 'is-editor-empty',
-            emptyNodeClass: 'is-empty',
-            emptyNodeText: this.placeholder,
-            showOnlyWhenEditable: false,
-            showOnlyCurrent: false
-          })
-        ],
+        editable: !this.readonly,
+        extensions,
         content: initValue,
         onUpdate: ({ getJSON }) => {
           this.$emit('input', JSON.stringify(getJSON()))
         }
       })
+    }
+  },
+
+  watch: {
+    value (newValue) {
+      var initValue = {}
+      try {
+        initValue = JSON.parse(this.value)
+      } catch (error) {
+        console.log(error)
+        initValue = {}
+      }
+      this.setContent(initValue)
     }
   },
 
@@ -229,6 +263,10 @@ export default {
     min-height: 240px;
     background-color: white;
     font-size: 16px;
+
+    &.readonly {
+      border-color: transparent;
+    }
   }
 
   p.is-editor-empty:first-child::before {

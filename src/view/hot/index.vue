@@ -5,7 +5,7 @@
       :data="hotList"
     >
       <template slot="type" slot-scope="{ row }">
-        {{ _findType(row.itemType).label }}
+        {{ row.resourceType || row.itemType }}
       </template>
     </Table>
   </div>
@@ -50,10 +50,6 @@ export default {
       }).then(({ data }) => {
         this.hotList = data.data
       })
-    },
-
-    _findType (type) {
-      return this.tabTypes.find(item => item.value === type) || {}
     }
   }
 }

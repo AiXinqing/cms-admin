@@ -20,12 +20,22 @@
       </template>
     </Table>
     <Modal
-      v-if="approvalModalVisible"
       v-model="approvalModalVisible"
-      :title="'审核 - ' + approvalNews.title"
+      :title="'审核 - ' + (approvalNews ? approvalNews.title : '')"
+      :loading="loading"
+      :width="768"
       ok-text="通过"
       cancel-text="拒绝"
+      @on-ok="approve"
+      @on-cancel="refuse"
     >
+      <div class="editor-wrapper">
+        <TipTapEditor
+          :value="approvalNews ? approvalNews.content : ''"
+          readonly
+          min-height="100px"
+        />
+      </div>
     </Modal>
   </div>
 </template>
@@ -68,6 +78,7 @@ export default {
     return {
       newsList: [],
       tabs: [],
+      loading: true,
       approvalNews: null,
       approvalModalVisible: false
     }
@@ -79,6 +90,13 @@ export default {
   },
 
   methods: {
+    changeLoading () {
+      this.loading = false
+      this.$nextTick(() => {
+        this.loading = true
+      })
+    },
+
     fetchTabs () {
       return axios.request({
         url: '/admin/tab/list',
@@ -102,6 +120,35 @@ export default {
       this.approvalModalVisible = true
     },
 
+    approve () {
+      axios.request({
+        url: `/admin/news/${this.approvalNews.id}/approve`,
+        method: 'post'
+      }).then(() => {
+        this.approvalNews.approval = 2
+        this.approvalModalVisible = false
+      }).catch(() => {
+        this.$Message.error({
+          content: '通过失败'
+        })
+      }).finally(() => {
+        this.changeLoading()
+      })
+    },
+
+    refuse () {
+      axios.request({
+        url: `/admin/news/${this.approvalNews.id}/refuse`,
+        method: 'post'
+      }).then(() => {
+        this.approvalNews.approval = 3
+      }).catch(() => {
+        this.$Message.error({
+          content: '拒绝失败'
+        })
+      })
+    },
+
     _findTab (id) {
       return this.tabs.find(tab => tab.tabId === id) || {
         tabName: ''
@@ -123,4 +170,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.editor-wrapper {
+  max-height: 70vh;
+  overflow: auto;
+}
 </style>

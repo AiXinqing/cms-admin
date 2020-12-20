@@ -7,6 +7,16 @@
       <template slot="tabId" slot-scope="{ row }">
         {{ _findTab(row.tabId).tabName }}
       </template>
+      <template slot="approval" slot-scope="{ row }">
+        {{ row.approval ? '已通过' : '待审核' }}
+      </template>
+      <template slot="actions" slot-scope="{ row }">
+        <Button
+          type="primary"
+          size="small"
+          @click="openApprovalModal(row)"
+        >审核</Button>
+      </template>
     </Table>
   </div>
 </template>
@@ -33,13 +43,24 @@ export default {
       key: 'tabId',
       title: '分类名称',
       slot: 'tabId'
+    },
+    {
+      key: 'approval',
+      title: '审核状态',
+      slot: 'approval'
+    },
+    {
+      title: '操作',
+      slot: 'actions'
     }
   ],
 
   data () {
     return {
       newsList: [],
-      tabs: []
+      tabs: [],
+      approvalNews: null,
+      approvalModalVisible: false
     }
   },
 
@@ -67,13 +88,16 @@ export default {
       })
     },
 
+    openApprovalModal (news) {
+      this.approvalNews = news
+      this.approvalModalVisible = true
+    },
+
     _findTab (id) {
       return this.tabs.find(tab => tab.tabId === id) || {
         tabName: ''
       }
-    },
-
-    updateNews () {}
+    }
   }
 }
 </script>

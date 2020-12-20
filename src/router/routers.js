@@ -152,6 +152,24 @@ export default [
     }]
   },
   {
+    path: '/work',
+    meta: {
+      icon: 'logo-buffer',
+      title: '发布视频',
+      hideInBread: true
+    },
+    component: Main,
+    children: [{
+      path: '/create',
+      name: 'work_create',
+      meta: {
+        icon: 'logo-buffer',
+        title: '发布视频'
+      },
+      component: () => import('@/view/work/new.vue')
+    }]
+  },
+  {
     path: '/applications',
     name: 'applications_host',
     meta: {

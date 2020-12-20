@@ -42,6 +42,7 @@ export default {
 
     uploadFile (event) {
       this.file = event.target.files.item(0)
+      this.$emit('file-changed', this.file)
       if (this.file) {
         this.uploading = true
         const data = new FormData()

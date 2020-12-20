@@ -1,13 +1,5 @@
 <template>
   <div>
-    <div class="news-btn-wrapper">
-      <button
-        class="ivu-btn ivu-btn-primary"
-        @click.stop="createNews"
-      >
-        新建新闻
-      </button>
-    </div>
     <Table
       :columns="$options.newsHeaders"
       :data="newsList"
@@ -81,20 +73,10 @@ export default {
       }
     },
 
-    updateNews () {},
-
-    createNews () {
-      this.$router.push({
-        name: 'news_create'
-      })
-    }
+    updateNews () {}
   }
 }
 </script>
 
 <style lang="less" scoped>
-.news-btn-wrapper {
-  margin-bottom: 20px;
-  text-align: right;
-}
 </style>

@@ -163,7 +163,8 @@ export default {
         method: 'post',
         data: {
           itemId: news.id,
-          itemType: 2 // 新闻
+          itemType: 2, // 新闻
+          itemOrder: 0
         }
       }).then(() => {
         this.$set(news, 'isHot', true)

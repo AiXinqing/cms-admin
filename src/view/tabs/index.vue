@@ -83,24 +83,7 @@ export default {
         tabType: 1,
         tabId: ''
       },
-      tabTypes: [
-        {
-          value: 1,
-          label: '热点'
-        },
-        {
-          value: 2,
-          label: '新闻'
-        },
-        {
-          value: 3,
-          label: '专栏'
-        },
-        {
-          value: 4,
-          label: '视频'
-        }
-      ]
+      tabTypes: this.$config.tabTypes
     }
   },
 

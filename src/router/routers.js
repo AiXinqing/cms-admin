@@ -109,17 +109,26 @@ export default [
           title: '新闻列表'
         },
         component: () => import('@/view/news/index.vue')
-      },
-      {
-        path: 'create',
-        name: 'news_create',
-        meta: {
-          icon: 'logo-buffer',
-          title: '发布新闻'
-        },
-        component: () => import('@/view/news/new.vue')
       }
     ]
+  },
+  {
+    path: '/news/create',
+    meta: {
+      icon: 'logo-buffer',
+      title: '发布新闻',
+      hideInBread: true
+    },
+    component: Main,
+    children: [{
+      path: '/',
+      name: 'news_create',
+      meta: {
+        icon: 'logo-buffer',
+        title: '发布新闻'
+      },
+      component: () => import('@/view/news/new.vue')
+    }]
   },
   {
     path: '/applications',

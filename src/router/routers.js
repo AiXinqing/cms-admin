@@ -92,6 +92,27 @@ export default [
     ]
   },
   {
+    path: '/hot-spot',
+    name: 'hot',
+    meta: {
+      icon: 'logo-buffer',
+      title: '热点管理',
+      hideInBread: true
+    },
+    component: Main,
+    children: [
+      {
+        path: '/',
+        name: 'hot_index',
+        meta: {
+          icon: 'logo-buffer',
+          title: '热点管理'
+        },
+        component: () => import('@/view/hot/index.vue')
+      }
+    ]
+  },
+  {
     path: '/news',
     name: 'news',
     meta: {

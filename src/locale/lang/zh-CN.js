@@ -13,6 +13,7 @@ export default {
   join_page: 'QQ群',
   news: '新闻',
   news_index: '新闻列表',
+  hot_index: '热点列表',
   news_create: '发布新闻',
   applications: '申请管理',
   tabs_index: '分类管理',

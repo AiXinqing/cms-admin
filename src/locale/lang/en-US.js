@@ -13,6 +13,7 @@ export default {
   tabs_index: 'Manage Tabs',
   news: 'News',
   news_index: 'News List',
+  hot_index: 'Hot-Spot List',
   news_create: 'Publish News',
   applications: 'Manage Applications',
   doc: 'Document',

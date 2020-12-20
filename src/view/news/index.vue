@@ -174,7 +174,7 @@ export default {
         method: 'post',
         data: {
           itemId: news.id,
-          itemType: 2, // 新闻
+          itemType: 1, // 新闻
           itemOrder: 0
         }
       }).then(() => {

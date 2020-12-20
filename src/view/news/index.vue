@@ -15,8 +15,16 @@
           v-if="![2, 3].includes(row.approval)"
           type="primary"
           size="small"
+          class="action-button"
           @click="openApprovalModal(row)"
         >审核</Button>
+        <Button
+          v-if="!row.isHot"
+          type="warning"
+          size="small"
+          class="action-button"
+          @click="setAsHot(row)"
+        >设为热点</Button>
       </template>
     </Table>
     <Modal
@@ -149,6 +157,24 @@ export default {
       })
     },
 
+    setAsHot (news) {
+      axios.request({
+        url: '/admin/hot/create',
+        method: 'post',
+        data: {
+          itemId: news.id,
+          itemType: 2 // 新闻
+        }
+      }).then(() => {
+        this.$set(news, 'isHot', true)
+        this.$Message.success({ content: '设置成功, 你可以在热点列表里面查看' })
+      }).catch(() => {
+        this.$Message.error({
+          content: '设置失败'
+        })
+      })
+    },
+
     _findTab (id) {
       return this.tabs.find(tab => tab.tabId === id) || {
         tabName: ''
@@ -173,5 +199,9 @@ export default {
 .editor-wrapper {
   max-height: 70vh;
   overflow: auto;
+}
+
+.action-button {
+  margin-right: .5rem;
 }
 </style>

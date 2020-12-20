@@ -55,6 +55,7 @@
     />
     <file-upload
       ref="fileUpload"
+      accept="images/*"
       v-show="false"
       @change="insertImage"
     />

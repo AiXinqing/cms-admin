@@ -9,6 +9,21 @@
         placeholder="请输入"
       />
     </FormItem>
+    <FormItem label="新闻封面">
+      <div class="cover-wrapper">
+        <div
+          v-if="news.picture"
+          class="cover-image"
+        >
+          <img :src="news.picture">
+        </div>
+        <FileUpload
+          ref="fileUpload"
+          accept="images/*"
+          @change="updateCover"
+        />
+      </div>
+    </FormItem>
     <FormItem label="分类">
       <Select
         v-model="news.tabId"
@@ -38,10 +53,12 @@
 <script>
 import axios from '@/libs/api.request'
 import TipTapEditor from '_c/tiptap'
+import FileUpload from '_c/file-upload'
 
 export default {
   components: {
-    TipTapEditor
+    TipTapEditor,
+    FileUpload
   },
 
   data () {
@@ -72,6 +89,10 @@ export default {
       })
     },
 
+    updateCover (url) {
+      this.news.picture = url
+    },
+
     createNews () {
       const newsdata = {
         ...this.news
@@ -90,3 +111,13 @@ export default {
   }
 }
 </script>
+
+<style lang="less">
+  .cover-image {
+    width: 50%;
+
+    img {
+      max-width: 100%;
+    }
+  }
+</style>

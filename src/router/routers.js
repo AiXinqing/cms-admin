@@ -153,6 +153,7 @@ export default [
   },
   {
     path: '/work',
+    name: 'work',
     meta: {
       icon: 'logo-buffer',
       title: '发布视频',

@@ -96,6 +96,7 @@ export default {
   data () {
     return {
       newsList: [],
+      headlines: [],
       tabs: [],
       loading: true,
       approvalNews: null,
@@ -106,6 +107,7 @@ export default {
   created () {
     this.fetchTabs()
     this.fetchNews()
+    this.fetchHeadlines()
   },
 
   methods: {
@@ -113,6 +115,15 @@ export default {
       this.loading = false
       this.$nextTick(() => {
         this.loading = true
+      })
+    },
+
+    fetchHeadlines () {
+      return axios.request({
+        url: '/admin/headerLine/headerLineInfo/list',
+        method: 'get'
+      }).then(({ data }) => {
+        this.headlines = data.data
       })
     },
 
@@ -188,12 +199,28 @@ export default {
     },
 
     setAsHeadline (news) {
+      const headline = this._getHeadline(news.tabId)
+
+      if (!headline) {
+        const tab = this._findTab(news.tabId)
+        this.$Modal.confirm({
+          title: `${tab.tabName}没有设置头条，请先添加`,
+          content: '是否跳转页面去添加？',
+          okText: '跳转',
+          onOk: () => {
+            this.$router.push({
+              name: 'tabs_index'
+            })
+          }
+        })
+        return
+      }
       axios.request({
         url: '/admin/headerLine/headerLineItem',
         method: 'post',
         data: {
-          itemId: news.id,
-          itemType: news.resourceType || 1 // 新闻
+          headerLineId: headline.id,
+          resourceId: news.resourceId
         }
       }).then(() => {
         this.$set(news, 'isHeaderLine', true)
@@ -220,6 +247,10 @@ export default {
         default:
           return '待审核'
       }
+    },
+
+    _getHeadline (tabId) {
+      return this.headlines.find(item => item.tabId === tabId)
     }
   }
 }

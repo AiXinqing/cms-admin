@@ -26,7 +26,7 @@
           @click="setAsHot(row)"
         >设为热点</Button>
         <Button
-          v-if="!row.isHot"
+          v-if="!row.isHeaderLine"
           type="info"
           size="small"
           class="action-button"

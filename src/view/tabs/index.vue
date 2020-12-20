@@ -253,7 +253,10 @@ export default {
           headLine.title = this.editHeadline.title
           headLine.id = data.data.id
         } else {
-          this.headlines.push(data.data)
+          this.headlines.push({
+            ...this.editHeadline,
+            id: data.data.id
+          })
         }
         this.$Message.success({
           content: `${this.headlineText}成功`

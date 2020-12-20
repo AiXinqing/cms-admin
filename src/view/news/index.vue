@@ -8,16 +8,25 @@
         {{ _findTab(row.tabId).tabName }}
       </template>
       <template slot="approval" slot-scope="{ row }">
-        {{ row.approval ? '已通过' : '待审核' }}
+        {{ _getApprovalText(row.approval) }}
       </template>
       <template slot="actions" slot-scope="{ row }">
         <Button
+          v-if="![2, 3].includes(row.approval)"
           type="primary"
           size="small"
           @click="openApprovalModal(row)"
         >审核</Button>
       </template>
     </Table>
+    <Modal
+      v-if="approvalModalVisible"
+      v-model="approvalModalVisible"
+      :title="'审核 - ' + approvalNews.title"
+      ok-text="通过"
+      cancel-text="拒绝"
+    >
+    </Modal>
   </div>
 </template>
 
@@ -96,6 +105,17 @@ export default {
     _findTab (id) {
       return this.tabs.find(tab => tab.tabId === id) || {
         tabName: ''
+      }
+    },
+
+    _getApprovalText (state) {
+      switch (state) {
+        case 3:
+          return '未通过'
+        case 2:
+          return '已通过'
+        default:
+          return '待审核'
       }
     }
   }

@@ -10,7 +10,7 @@
       <Modal
         v-model="createTabModalVisible"
         title="添加分类"
-        on-text="添加"
+        ok-text="添加"
         @on-ok="addTab"
       >
         <Form

@@ -32,6 +32,12 @@
           class="action-button"
           @click="setAsHeadline(row)"
         >设为头条</Button>
+        <Button
+          type="primary"
+          size="small"
+          class="action-button"
+          @click="openPreviewNewsModal(row)"
+        >查看内容</Button>
       </template>
     </Table>
     <Modal
@@ -47,6 +53,20 @@
       <div class="editor-wrapper">
         <TipTapEditor
           :value="approvalNews ? approvalNews.content : ''"
+          readonly
+          min-height="100px"
+        />
+      </div>
+    </Modal>
+    <Modal
+      v-model="previewModalVisible"
+      :title="previewNews ? previewNews.title : ''"
+      :width="768"
+      footer-hide
+    >
+      <div class="editor-wrapper">
+        <TipTapEditor
+          :value="previewNews ? previewNews.content : ''"
           readonly
           min-height="100px"
         />
@@ -95,11 +115,13 @@ export default {
 
   data () {
     return {
+      previewModalVisible: false,
       newsList: [],
       headlines: [],
       tabs: [],
       loading: true,
       approvalNews: null,
+      previewNews: null,
       approvalModalVisible: false
     }
   },
@@ -148,6 +170,11 @@ export default {
     openApprovalModal (news) {
       this.approvalNews = news
       this.approvalModalVisible = true
+    },
+
+    openPreviewNewsModal (news) {
+      this.previewNews = news
+      this.previewModalVisible = true
     },
 
     approve () {

@@ -37,6 +37,7 @@ export default {
 
   methods: {
     openFilePickerDialog () {
+      if (this.uploading) return
       this.$refs.fileInput.click()
     },
 
@@ -51,14 +52,17 @@ export default {
           url: '/file/upload',
           method: 'post',
           data,
-          onUploadProgress (t) {
+          onUploadProgress: (t) => {
             this.$emit('progress', t.loaded / t.total)
           }
         }).then(({ data }) => {
           this.$refs.fileInput.value = ''
           this.$emit('change', data.data)
+        }).catch(() => {
+          this.$emit('upload-error')
         }).finally(() => {
           this.uploading = false
+          this.$emit('upload-end')
         })
       }
     }

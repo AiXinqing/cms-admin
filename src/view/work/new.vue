@@ -40,13 +40,23 @@
     <keep-alive>
       <FormItem v-if="work.type=== 1" label="视频">
         <div class="video-wrapper">
-          <div class="video-file" v-if="file">
-            {{ file.name }}
+          <div
+            v-if="file"
+            :class="{ uploaded: work.videoUrl && this.fileProgress === 1 }"
+            class="video-file"
+          >
+            <div
+              class="progress-bar"
+              :style="{ width: `${fileProgress * 100}%` }"
+            />
+            <span class="video-file-name">{{ file.name }}</span>
           </div>
           <FileUpload
-            accept="images/*"
+            accept="video/*"
             @file-changed="updateSelectedFile"
             @change="updateContent"
+            @progress="updateProgress"
+            @upload-error="uploadError"
           />
         </div>
       </FormItem>`
@@ -77,6 +87,7 @@ export default {
     return {
       tabs: [],
       file: null,
+      fileProgress: 0,
       work: {
         title: '',
         content: '',
@@ -106,11 +117,21 @@ export default {
     },
 
     updateSelectedFile (file) {
+      this.fileProgress = 0
       this.file = file
     },
 
     updateContent (url) {
+      this.fileProgress = 1
       this.work.videoUrl = url
+    },
+
+    uploadError () {
+      this.fileProgress = 0
+    },
+
+    updateProgress (progress) {
+      this.fileProgress = progress
     },
 
     createWork () {
@@ -137,6 +158,33 @@ export default {
 
     img {
       max-width: 100%;
+    }
+  }
+
+  .video-file {
+    position: relative;
+    background-color: lightgray;
+
+    &.uploaded {
+      background-color: transparent;
+
+      .progress-bar {
+        background-color: transparent;
+      }
+    }
+
+    .progress-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      background-color: lightgreen;
+      z-index: 1;
+    }
+
+    .video-file-name {
+      position: relative;
+      z-index: 2;
     }
   }
 </style>

@@ -92,8 +92,8 @@ export default [
     ]
   },
   {
-    path: '/kankan_types',
-    name: 'kankan_types',
+    path: '/kankan',
+    name: 'kankan',
     meta: {
       icon: 'logo-buffer',
       title: '看看分类',
@@ -102,13 +102,22 @@ export default [
     component: Main,
     children: [
       {
-        path: '/',
+        path: 'types',
         name: 'kankan_types_index',
         meta: {
           icon: 'logo-buffer',
           title: '看看分类管理'
         },
-        component: () => import('@/view/kankan_types/index.vue')
+        component: () => import('@/view/kankan/types.vue')
+      },
+      {
+        path: 'user',
+        name: 'kankan_user_index',
+        meta: {
+          icon: 'logo-buffer',
+          title: '看看用户管理'
+        },
+        component: () => import('@/view/kankan/user.vue')
       }
     ]
   },

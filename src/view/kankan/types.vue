@@ -11,7 +11,7 @@
         v-model="createKankanTypeModalVisible"
         :title="addText + '分类'"
         :ok-text="addText"
-        @on-ok="addTab"
+        @on-ok="addKankanType"
       >
         <Form
           :model="editKankanType"
@@ -78,12 +78,6 @@ export default {
       return this.editKankanType.tabId
         ? '修改'
         : '添加'
-    },
-
-    headlineText () {
-      return this.editHeadline.id
-        ? '修改'
-        : '添加'
     }
   },
 
@@ -104,7 +98,7 @@ export default {
       this.createKankanTypeModalVisible = true
     },
 
-    addTab () {
+    addKankanType () {
       if (this.editKankanType.id) {
         axios.request({
           url: '/admin/kankan/updateType',
@@ -144,39 +138,6 @@ export default {
         typeOrder: 1,
         id: ''
       }
-    },
-
-    createOrUpdateHeadline () {
-      axios.request({
-        url: '/admin/headerLine/headerLineInfo',
-        method: 'post',
-        data: {
-          ...this.editHeadline
-        }
-      }).then(({ data }) => {
-        const headLine = this._findHeadline({
-          id: this.editHeadline.tabId
-        })
-        if (headLine) {
-          headLine.title = this.editHeadline.title
-          headLine.id = data.data.id
-        } else {
-          this.headlines.push({
-            ...this.editHeadline,
-            id: data.data.id
-          })
-        }
-        this.$Message.success({
-          content: `${this.headlineText}成功`
-        })
-      }).catch(() => {
-        this.$Message.error({
-          content: `${this.headlineText}失败`
-        })
-      }).finally(() => {
-        this.resetHeadline()
-        this.headlineModalVisible = false
-      })
     }
   }
 }

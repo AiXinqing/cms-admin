@@ -34,6 +34,17 @@ export default {
     }
   },
 
+  kankanTypes: [
+    {
+      value: 0,
+      label: '文章'
+    },
+    {
+      value: 1,
+      label: '视频'
+    }
+  ],
+
   tabTypes: [
     {
       value: 2,

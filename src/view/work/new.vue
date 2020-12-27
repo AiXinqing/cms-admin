@@ -102,16 +102,7 @@ export default {
         userId: 4,
         videoUrl: ''
       },
-      workTypes: [
-        {
-          value: WORK_TYPE.post,
-          label: '文章'
-        },
-        {
-          value: WORK_TYPE.video,
-          label: '视频'
-        }
-      ]
+      workTypes: this.$config.kankanTypes
     }
   },
 

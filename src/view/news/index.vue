@@ -33,7 +33,7 @@
           @click="setAsHeadline(row)"
         >设为头条</Button>
         <Button
-          type="primary"
+          type="default"
           size="small"
           class="action-button"
           @click="openPreviewNewsModal(row)"

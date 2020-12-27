@@ -143,6 +143,25 @@ export default [
     ]
   },
   {
+    path: '/works',
+    name: 'works',
+    meta: {
+      icon: 'logo-buffer',
+      title: '作品列表',
+      hideInBread: true
+    },
+    component: Main,
+    children: [{
+      path: '/',
+      name: 'works_index',
+      meta: {
+        icon: 'logo-buffer',
+        title: '作品列表'
+      },
+      component: () => import('@/view/work/index.vue')
+    }]
+  },
+  {
     path: '/news',
     name: 'news',
     meta: {
@@ -186,7 +205,7 @@ export default [
     name: 'work',
     meta: {
       icon: 'logo-buffer',
-      title: '发布视频',
+      title: '发布作品',
       hideInBread: true
     },
     component: Main,
@@ -195,7 +214,7 @@ export default [
       name: 'work_create',
       meta: {
         icon: 'logo-buffer',
-        title: '发布视频'
+        title: '发布作品'
       },
       component: () => import('@/view/work/new.vue')
     }]

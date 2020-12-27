@@ -18,7 +18,7 @@
           <img :src="work.picture">
         </div>
         <FileUpload
-          accept="images/*"
+          accept="image/*"
           @change="updateCover"
         />
       </div>
@@ -77,6 +77,11 @@ import axios from '@/libs/api.request'
 import FileUpload from '_c/file-upload'
 import TipTapEditor from '_c/tiptap'
 
+const WORK_TYPE = {
+  video: 1,
+  post: 0
+}
+
 export default {
   components: {
     FileUpload,
@@ -95,16 +100,15 @@ export default {
         picture: '',
         type: 0,
         userId: 4,
-        videoUrl: '',
-        id: ''
+        videoUrl: ''
       },
       workTypes: [
         {
-          value: 0,
+          value: WORK_TYPE.post,
           label: '文章'
         },
         {
-          value: 1,
+          value: WORK_TYPE.video,
           label: '视频'
         }
       ]
@@ -138,14 +142,20 @@ export default {
       const workdata = {
         ...this.work
       }
+      // 文章
+      if (this.work.type === WORK_TYPE.post) {
+        workdata.videoUrl = ''
+      } else {
+        workdata.content = ''
+      }
       return axios.request({
         url: '/admin/work/create',
         data: workdata,
         method: 'post'
       }).then(({ data }) => {
-        // this.$router.push({
-        //   name: 'work_index'
-        // })
+        this.$router.push({
+          name: 'works_index'
+        })
       })
     }
   }

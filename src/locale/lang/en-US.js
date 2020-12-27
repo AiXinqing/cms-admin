@@ -11,6 +11,7 @@ export default {
   img_cropper_page: 'Image-editor',
   update: 'Update',
   tabs_index: 'Manage Tabs',
+  kankan_types_index: 'Manage Kankan Types',
   news: 'News',
   news_index: 'News List',
   hot_index: 'Hot-Spot List',

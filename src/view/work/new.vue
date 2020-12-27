@@ -23,29 +23,34 @@
         />
       </div>
     </FormItem>
-    <FormItem label="描述">
-      <Input
-        v-model="work.content"
-        :autosize="{minRows: 2,maxRows: 5}"
-        type="textarea"
-        placeholder="请输入"
-      />
+    <FormItem label="类型">
+      <Select v-model="work.type">
+        <Option
+          v-for="type in workTypes"
+          :key="type.value"
+          :value="type.value"
+        >{{ type.label }}</Option>
+      </Select>
     </FormItem>
-    <FormItem label="视频">
-      <div class="cover-wrapper">
-        <div
-          v-if="file"
-          class="cover-image"
-        >
-          {{ file.name }}
+    <keep-alive>
+      <FormItem v-if="work.type === 0" label="内容">
+        <tip-tap-editor v-model="work.content" />
+      </FormItem>
+    </keep-alive>
+    <keep-alive>
+      <FormItem v-if="work.type=== 1" label="视频">
+        <div class="video-wrapper">
+          <div class="video-file" v-if="file">
+            {{ file.name }}
+          </div>
+          <FileUpload
+            accept="images/*"
+            @file-changed="updateSelectedFile"
+            @change="updateContent"
+          />
         </div>
-        <FileUpload
-          accept="images/*"
-          @file-changed="updateSelectedFile"
-          @change="updateContent"
-        />
-      </div>
-    </FormItem>
+      </FormItem>`
+    </keep-alive>
     <FormItem>
       <Button
         type="primary"
@@ -60,10 +65,12 @@
 <script>
 import axios from '@/libs/api.request'
 import FileUpload from '_c/file-upload'
+import TipTapEditor from '_c/tiptap'
 
 export default {
   components: {
-    FileUpload
+    FileUpload,
+    TipTapEditor
   },
 
   data () {
@@ -75,35 +82,25 @@ export default {
         content: '',
         keyword: [],
         picture: '',
-        type: 4,
+        type: 0,
         userId: 4,
+        videoUrl: '',
         id: ''
-      }
+      },
+      workTypes: [
+        {
+          value: 0,
+          label: '文章'
+        },
+        {
+          value: 1,
+          label: '视频'
+        }
+      ]
     }
-  },
-
-  computed: {
-    tabPlaceholder () {
-      return this.tabs.length
-        ? '请选择'
-        : '没有可选的分类，请先添加分类'
-    }
-  },
-
-  created () {
-    // this.fetchTabs()
   },
 
   methods: {
-    fetchTabs () {
-      return axios.request({
-        url: '/admin/tab/list',
-        method: 'get'
-      }).then(({ data }) => {
-        this.tabs = data.data.filter((tab) => tab.tabType === 2)
-      })
-    },
-
     updateCover (url) {
       this.work.picture = url
     },
@@ -120,7 +117,6 @@ export default {
       const workdata = {
         ...this.work
       }
-      delete workdata.id
       return axios.request({
         url: '/admin/work/create',
         data: workdata,

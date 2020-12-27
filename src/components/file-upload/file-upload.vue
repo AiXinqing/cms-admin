@@ -50,11 +50,13 @@ export default {
         axios.request({
           url: '/file/upload',
           method: 'post',
-          data
+          data,
+          onUploadProgress (t) {
+            this.$emit('progress', t.loaded / t.total)
+          }
         }).then(({ data }) => {
-          const [, fileId] = data.data.match(/fileId=(.+)/)
           this.$refs.fileInput.value = ''
-          this.$emit('change', `http://47.94.33.237:8081/file/download?fileId=${fileId}`)
+          this.$emit('change', data.data)
         }).finally(() => {
           this.uploading = false
         })

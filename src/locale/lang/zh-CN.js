@@ -15,7 +15,7 @@ export default {
   news_index: '新闻列表',
   hot_index: '热点列表',
   news_create: '发布新闻',
-  work_create: '发布视频',
+  work_create: '发布作品',
   applications: '申请管理',
   tabs_index: '分类管理',
   kankan: '看看',

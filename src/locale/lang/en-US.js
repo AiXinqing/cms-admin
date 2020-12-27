@@ -18,7 +18,7 @@ export default {
   news_index: 'News List',
   hot_index: 'Hot-Spot List',
   news_create: 'Publish News',
-  work_create: 'Publish Video',
+  work_create: 'Publish Work',
   applications: 'Manage Applications',
   doc: 'Document',
   join_page: 'QQ Group',

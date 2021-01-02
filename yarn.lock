@@ -2363,11 +2363,6 @@ clone@^2.1.1:
   resolved "https://registry.yarnpkg.com/clone/-/clone-2.1.2.tgz#1b7f4b9f591f1e8f83670401600345a02887435f"
   integrity sha1-G39Ln1kfHo+DZwQBYANFoCiHQ18=
 
-clonedeep@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/clonedeep/-/clonedeep-2.0.0.tgz#8ceca0777f477bbf31fe8c871aaf63a390bbc272"
-  integrity sha1-jOygd39He78x/oyHGq9jo5C7wnI=
-
 co@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
@@ -5365,7 +5360,7 @@ iview-area@^1.5.17:
     iview "^3.0.0"
     vue "^2.5.17"
 
-iview@^3.0.0, iview@^3.1.5, iview@^3.2.2:
+iview@^3.0.0, iview@^3.2.2:
   version "3.5.4"
   resolved "https://registry.yarnpkg.com/iview/-/iview-3.5.4.tgz#d516b92e73b617f2dc7f45831f99059d69932f82"
   integrity sha512-CEDHdAXxpGciMV+m1jdMDs0UVqzk/AaFhCDtSGcKDLidXRMOG2TgCZhtEHhI4mf3lchKEUFO/BcXtHAfBNuy7Q==
@@ -9238,15 +9233,6 @@ tr46@^1.0.1:
   dependencies:
     punycode "^2.1.0"
 
-tree-table-vue@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/tree-table-vue/-/tree-table-vue-1.1.0.tgz#113a4bd9d84faa643972c4b802809a9db6630d89"
-  integrity sha512-r5WUa5+s36Ud3Ycpp6+wqse6FkG3yDUsOUagjhoUbBld7H7JETntQRJ1oeL8jMj/oOH4gflkarG5h4QUX0zTtA==
-  dependencies:
-    clonedeep "^2.0.0"
-    iview "^3.1.5"
-    vue "^2.5.17"
-
 tryer@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/tryer/-/tryer-1.0.1.tgz#f2c85406800b9b0f74c9f7465b81eaad241252f8"
@@ -9515,13 +9501,6 @@ v-click-outside-x@^4.0.19:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/v-click-outside-x/-/v-click-outside-x-4.1.0.tgz#be826680e2d25666a8a185332929d46244aa2447"
   integrity sha512-jhFTHKSMJU031QbVRZxEB57DFCGrY77LPCm8hRXqX/ECXkVWIOvh3V+WAPP4zvn7GVKuSOSwTdXhIzgXf19qwg==
-
-v-org-tree@^1.0.6:
-  version "1.0.12"
-  resolved "https://registry.yarnpkg.com/v-org-tree/-/v-org-tree-1.0.12.tgz#566b2ef1d3b88c8fad4cee3365a6b4bfeae3b48d"
-  integrity sha512-xqbCHFrY1Eg/l7HWfNj8N5uXBpVLHZt9YiuRpElIl7dBl9/yuTAwgsFf3VJjzESZ7WdT0InoXWLBgfAyeb8oXw==
-  dependencies:
-    clonedeep "^2.0.0"
 
 validate-npm-package-license@^3.0.1:
   version "3.0.4"

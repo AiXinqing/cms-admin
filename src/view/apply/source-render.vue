@@ -1,15 +1,20 @@
 <template>
-  <div class="file-item">
-    <img
-      v-if="isImage"
-      :src="file.fileData"
-    />
-    <span v-else>{{ file.file.name }}</span>
+  <div class="files-container">
     <div
-      v-if="file.uploadState === 'failed'"
-      class="reload-button"
+      v-for="(file, index) in files"
+      :key="index"
+      class="file-item"
     >
-      <Button @click="reload" type="error" size="small">重试</Button>
+      <img :src="imageSrc(file)" />
+      <div
+        v-if="canReload(file)"
+        class="reload-button"
+      >
+        <Button @click="reload(file)" type="error" size="small">重试</Button>
+      </div>
+    </div>
+    <div v-if="!files.length">
+      没有选择该类文件
     </div>
   </div>
 </template>
@@ -17,21 +22,27 @@
 <script>
 export default {
   props: {
-    file: {
-      type: Object,
+    files: {
+      type: Array,
       required: true
     }
   },
 
-  computed: {
-    isImage () {
-      return /image/ig.test(this.file.file.type)
-    }
-  },
-
   methods: {
-    reload () {
-      this.file.upload()
+    reload (file) {
+      file.upload()
+    },
+
+    canReload (file) {
+      return typeof file === 'string'
+        ? false
+        : file.uploadState === 'failed'
+    },
+
+    imageSrc (file) {
+      return typeof file === 'string'
+        ? file
+        : file.fileData
     }
   }
 }
@@ -60,5 +71,11 @@ export default {
     max-width: 100%;
     display: block;
   }
+}
+
+.files-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 </style>

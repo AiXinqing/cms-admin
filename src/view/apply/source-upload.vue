@@ -10,7 +10,7 @@
     >
     <slot :open-file-picker-dialog="openFilePickerDialog">
       <Button
-        type="primary"
+        type="default"
         size="small"
         @click="openFilePickerDialog"
       >

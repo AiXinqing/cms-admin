@@ -24,7 +24,6 @@ export default {
   apply_kankan: 'Apply for Kankan',
   applications: 'Manage Applications',
   doc: 'Document',
-  join_page: 'QQ Group',
   update_table_page: 'Update .CSV',
   update_paste_page: 'Paste Table Data',
   multilevel: 'multilevel',

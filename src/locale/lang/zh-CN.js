@@ -10,7 +10,6 @@ export default {
   icons_page: '自定义图标',
   img_cropper_page: '图片编辑器',
   update: '上传数据',
-  join_page: 'QQ群',
   news: '新闻',
   news_index: '新闻列表',
   hot_index: '热点列表',

@@ -231,6 +231,28 @@ export default [
     }]
   },
   {
+    path: '/apply',
+    name: 'apply',
+    meta: {
+      icon: 'logo-buffer',
+      title: '申请',
+      hideInBread: true,
+      access: ['author', 'reporter']
+    },
+    component: Main,
+    children: [
+      {
+        path: 'kankan',
+        name: 'apply_kankan',
+        meta: {
+          icon: 'logo-buffer',
+          title: '申请看看号'
+        },
+        component: () => import('@/view/apply/kankan.vue')
+      }
+    ]
+  },
+  {
     path: '/applications',
     name: 'applications_host',
     meta: {

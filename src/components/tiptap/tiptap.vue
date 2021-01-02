@@ -47,6 +47,76 @@
         >
           <Icon custom="i-icon i-icon-image" />
         </div>
+        <div
+          :class="{ 'is-active': isActive.ordered_list() }"
+          class="menu-item"
+          @click="commands.ordered_list"
+        >
+          <Icon custom="i-icon i-icon-list-ol" />
+        </div>
+        <div
+          :class="{ 'is-active': isActive.bullet_list() }"
+          class="menu-item"
+          @click="commands.bullet_list"
+        >
+          <Icon custom="i-icon i-icon-list-ul" />
+        </div>
+        <div
+          class="menu-item"
+          @click="commands.createTable({rowsCount: 3, colsCount: 3, withHeaderRow: false })"
+        >
+          <Icon custom="i-icon i-icon-table" />
+        </div>
+        <template v-if="isActive.table()">
+          <div
+            class="menu-item"
+            @click="commands.deleteTable"
+          >
+            <Icon custom="i-icon i-icon-table" />
+          </div>
+          <div
+            class="menu-item"
+            @click="commands.addColumnBefore"
+          >
+            <Icon custom="i-icon i-icon-cube" />
+          </div>
+          <div
+            class="menu-item"
+            @click="commands.addColumnAfter"
+          >
+            <Icon custom="i-icon i-icon-cube" />
+          </div>
+          <div
+            class="menu-item"
+            @click="commands.deleteColumn"
+          >
+            <Icon custom="i-icon i-icon-cube" />
+          </div>
+          <div
+            class="menu-item"
+            @click="commands.addRowBefore"
+          >
+            <Icon custom="i-icon i-icon-cube" />
+          </div>
+          <div
+            class="menu-item"
+            @click="commands.addRowAfter"
+          >
+            <Icon custom="i-icon i-icon-cube" />
+          </div>
+          <div
+            class="menu-item"
+            @click="commands.deleteRow"
+          >
+            <Icon custom="i-icon i-icon-cube" />
+          </div>
+          <div
+            class="menu-item"
+            @click="commands.toggleCellMerge"
+          >
+            <Icon custom="i-icon i-icon-cube" />
+          </div>
+        </template>
       </div>
     </editor-menu-bar>
     <editor-content
@@ -76,7 +146,14 @@ import {
   Strike,
   Italic,
   Underline,
-  Placeholder
+  Placeholder,
+  ListItem,
+  OrderedList,
+  BulletList,
+  Table,
+  TableHeader,
+  TableCell,
+  TableRow
 } from 'tiptap-extensions'
 import FileUpload from '_c/file-upload'
 
@@ -127,7 +204,16 @@ export default {
       new Strike(),
       new Italic(),
       new Image(),
-      new Underline()
+      new Underline(),
+      new ListItem(),
+      new OrderedList(),
+      new BulletList(),
+      new Table({
+        resizable: true
+      }),
+      new TableHeader(),
+      new TableCell(),
+      new TableRow()
     ]
     if (!this.readonly) {
       extensions.push(
@@ -227,6 +313,10 @@ export default {
     padding: 5px;
   }
 
+  ol, ul {
+    padding: revert;
+  }
+
   .menu-item {
     width: 28px;
     height: 28px;
@@ -276,6 +366,26 @@ export default {
     pointer-events: none;
     height: 0;
     font-style: italic;
+  }
+
+  table{
+    border-collapse: collapse;
+    min-width: 165px !important;
+
+    td,th{
+      min-width: 1em;
+      border: 2px solid #ddd;
+      padding: 3px 5px;
+      vertical-align: top;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      position: relative;
+    }
+  }
+
+  .tableWrapper{
+    margin: 1em 0;
+    overflow-x: auto;
   }
 }
 </style>

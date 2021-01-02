@@ -86,12 +86,17 @@ export default {
       })
     },
     // 获取用户相关信息
-    getUserInfo ({ state, commit }) {
+    getUserInfo ({ state, commit }, userName) {
       return new Promise((resolve, reject) => {
         commit('setAvator', 'http://placehold.it/40x40')
-        commit('setUserName', 'super_admin')
+        commit('setUserName', userName)
         commit('setUserId', '1')
-        commit('setAccess', ['super_admin', 'admin'])
+        const access = userName === 'super'
+          ? ['admin']
+          : userName === 'author'
+            ? ['author']
+            : ['reporter']
+        commit('setAccess', access)
         commit('setHasGetInfo', true)
         resolve()
       })

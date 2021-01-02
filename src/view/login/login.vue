@@ -8,7 +8,7 @@
       <Card icon="log-in" title="欢迎登录" :bordered="false">
         <div class="form-con">
           <login-form @on-success-valid="handleSubmit"></login-form>
-          <p class="login-tip">输入任意用户名和密码即可</p>
+          <p class="login-tip">用户名分super, author, reporter.输入任意密码即可</p>
         </div>
       </Card>
     </div>
@@ -29,10 +29,26 @@ export default {
     ]),
     handleSubmit ({ userName, password }) {
       this.handleLogin({ userName, password }).then(res => {
-        this.getUserInfo().then(res => {
-          this.$router.push({
-            name: this.$config.homeName
-          })
+        this.getUserInfo(userName).then(res => {
+          switch (userName) {
+            case 'super': {
+              this.$router.push({
+                name: this.$config.homeName
+              })
+              break
+            }
+            case 'author': {
+              this.$router.push({
+                name: 'work_create'
+              })
+              break
+            }
+            default: {
+              this.$router.push({
+                name: 'news_create'
+              })
+            }
+          }
         })
       })
     }

@@ -152,7 +152,7 @@ export default [
       icon: 'logo-buffer',
       title: '作品列表',
       hideInBread: true,
-      access: ['admin']
+      access: ['admin', 'author']
     },
     component: Main,
     children: [{
@@ -160,8 +160,7 @@ export default [
       name: 'works_index',
       meta: {
         icon: 'logo-buffer',
-        title: '作品列表',
-        access: ['admin']
+        title: '作品列表'
       },
       component: () => import('@/view/work/index.vue')
     }]
@@ -173,7 +172,7 @@ export default [
       icon: 'logo-buffer',
       title: '新闻',
       hideInBread: true,
-      access: ['admin']
+      access: ['admin', 'reporter']
     },
     component: Main,
     children: [
@@ -182,8 +181,7 @@ export default [
         name: 'news_index',
         meta: {
           icon: 'logo-buffer',
-          title: '新闻列表',
-          access: ['admin']
+          title: '新闻列表'
         },
         component: () => import('@/view/news/index.vue')
       }

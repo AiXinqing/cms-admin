@@ -10,6 +10,7 @@
           :class="{ 'menu-item-active': isActive.bold() }"
           class="menu-item"
           @click="commands.bold()"
+          title="加粗"
         >
           <Icon custom="i-icon i-icon-text-bold" />
         </div>
@@ -17,6 +18,7 @@
           :class="{ 'menu-item-active': isActive.strike() }"
           class="menu-item"
           @click="commands.strike()"
+          title="删除线"
         >
           <Icon custom="i-icon i-icon-text-strikethrough" />
         </div>
@@ -24,6 +26,7 @@
           :class="{ 'menu-item-active': isActive.italic() }"
           class="menu-item"
           @click="commands.italic()"
+          title="倾斜"
         >
           <Icon custom="i-icon i-icon-text-italic" />
         </div>
@@ -31,6 +34,7 @@
           :class="{ 'menu-item-active': isActive.underline() }"
           class="menu-item"
           @click="commands.underline()"
+          title="下划线"
         >
           <Icon custom="i-icon i-icon-text-underline" />
         </div>
@@ -38,15 +42,98 @@
           :class="{ 'menu-item-active': isActive.heading({ level: 2 }) }"
           class="menu-item"
           @click="commands.heading({ level: 2 })"
+          title="小标题"
         >
           <Icon type="md-reorder" />
         </div>
         <div
           class="menu-item"
           @click="selectFile(commands.image)"
+          title="图片"
         >
           <Icon custom="i-icon i-icon-image" />
         </div>
+        <div
+          :class="{ 'is-active': isActive.ordered_list() }"
+          class="menu-item"
+          @click="commands.ordered_list"
+          title="有序列"
+        >
+          <Icon custom="i-icon i-icon-list-ol" />
+        </div>
+        <div
+          :class="{ 'is-active': isActive.bullet_list() }"
+          class="menu-item"
+          @click="commands.bullet_list"
+          title="无序列"
+        >
+          <Icon custom="i-icon i-icon-list-ul" />
+        </div>
+        <div
+          class="menu-item"
+          @click="commands.createTable({rowsCount: 3, colsCount: 3, withHeaderRow: false })"
+          title="新增表格"
+        >
+          <Icon custom="i-icon i-icon-table" />
+        </div>
+        <template v-if="isActive.table()">
+          <div
+            class="menu-item"
+            @click="commands.deleteTable"
+            title="删除表格"
+          >
+            <Icon custom="i-icon i-icon-table" />
+          </div>
+          <div
+            class="menu-item"
+            @click="commands.addColumnBefore"
+            title="之前插入一列"
+          >
+            <Icon custom="i-icon i-icon-cube" />
+          </div>
+          <div
+            class="menu-item"
+            @click="commands.addColumnAfter"
+            title="之后插入一列"
+          >
+            <Icon custom="i-icon i-icon-cube" />
+          </div>
+          <div
+            class="menu-item"
+            @click="commands.deleteColumn"
+            title="删除当前列"
+          >
+            <Icon custom="i-icon i-icon-cube" />
+          </div>
+          <div
+            class="menu-item"
+            @click="commands.addRowBefore"
+            title="之前插入一行"
+          >
+            <Icon custom="i-icon i-icon-cube" />
+          </div>
+          <div
+            class="menu-item"
+            @click="commands.addRowAfter"
+            title="之后插入一行"
+          >
+            <Icon custom="i-icon i-icon-cube" />
+          </div>
+          <div
+            class="menu-item"
+            @click="commands.deleteRow"
+            title="删除当前行"
+          >
+            <Icon custom="i-icon i-icon-cube" />
+          </div>
+          <div
+            class="menu-item"
+            @click="commands.toggleCellMerge"
+            title="合并单元格"
+          >
+            <Icon custom="i-icon i-icon-cube" />
+          </div>
+        </template>
       </div>
     </editor-menu-bar>
     <editor-content
@@ -76,7 +163,14 @@ import {
   Strike,
   Italic,
   Underline,
-  Placeholder
+  Placeholder,
+  ListItem,
+  OrderedList,
+  BulletList,
+  Table,
+  TableHeader,
+  TableCell,
+  TableRow
 } from 'tiptap-extensions'
 import FileUpload from '_c/file-upload'
 
@@ -127,7 +221,16 @@ export default {
       new Strike(),
       new Italic(),
       new Image(),
-      new Underline()
+      new Underline(),
+      new ListItem(),
+      new OrderedList(),
+      new BulletList(),
+      new Table({
+        resizable: true
+      }),
+      new TableHeader(),
+      new TableCell(),
+      new TableRow()
     ]
     if (!this.readonly) {
       extensions.push(
@@ -227,6 +330,10 @@ export default {
     padding: 5px;
   }
 
+  ol, ul {
+    padding: revert;
+  }
+
   .menu-item {
     width: 28px;
     height: 28px;
@@ -276,6 +383,26 @@ export default {
     pointer-events: none;
     height: 0;
     font-style: italic;
+  }
+
+  table{
+    border-collapse: collapse;
+    min-width: 165px !important;
+
+    td,th{
+      min-width: 1em;
+      border: 2px solid #ddd;
+      padding: 3px 5px;
+      vertical-align: top;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      position: relative;
+    }
+  }
+
+  .tableWrapper{
+    margin: 1em 0;
+    overflow-x: auto;
   }
 }
 </style>

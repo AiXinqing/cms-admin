@@ -40,24 +40,7 @@
         >查看内容</Button>
       </template>
     </Table>
-    <Modal
-      v-model="approvalModalVisible"
-      :title="'审核 - ' + (approvalNews ? approvalNews.title : '')"
-      :loading="loading"
-      :width="768"
-      ok-text="通过"
-      cancel-text="拒绝"
-      @on-ok="approve"
-      @on-cancel="refuse"
-    >
-      <div class="editor-wrapper">
-        <TipTapEditor
-          :value="approvalNews ? approvalNews.content : ''"
-          readonly
-          min-height="100px"
-        />
-      </div>
-    </Modal>
+
     <Modal
       v-model="previewModalVisible"
       :title="previewNews ? previewNews.title : ''"
@@ -121,8 +104,7 @@ export default {
       tabs: [],
       loading: true,
       approvalNews: null,
-      previewNews: null,
-      approvalModalVisible: false
+      previewNews: null
     }
   },
 
@@ -133,12 +115,6 @@ export default {
   },
 
   methods: {
-    changeLoading () {
-      this.loading = false
-      this.$nextTick(() => {
-        this.loading = true
-      })
-    },
 
     fetchHeadlines () {
       return axios.request({
@@ -169,7 +145,14 @@ export default {
 
     openApprovalModal (news) {
       this.approvalNews = news
-      this.approvalModalVisible = true
+      this.$Modal.confirm({
+        title: `确认通过审核`,
+        okText: `通过`,
+        cancelText: `取消`,
+        onOk: () => {
+          this.approve()
+        }
+      })
     },
 
     openPreviewNewsModal (news) {
@@ -183,26 +166,12 @@ export default {
         method: 'post'
       }).then(() => {
         this.approvalNews.approval = 2
-        this.approvalModalVisible = false
       }).catch(() => {
         this.$Message.error({
           content: '通过失败'
         })
       }).finally(() => {
-        this.changeLoading()
-      })
-    },
-
-    refuse () {
-      axios.request({
-        url: `/admin/news/${this.approvalNews.id}/refuse`,
-        method: 'post'
-      }).then(() => {
-        this.approvalNews.approval = 3
-      }).catch(() => {
-        this.$Message.error({
-          content: '拒绝失败'
-        })
+        this.$Modal.remove()
       })
     },
 

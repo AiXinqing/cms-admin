@@ -31,24 +31,18 @@ export default {
       this.handleLogin({ userName, password }).then(res => {
         this.getUserInfo(userName).then(res => {
           switch (userName) {
-            case 'super': {
-              this.$router.push({
-                name: this.$config.homeName
-              })
+            case 'super':
+              this.$config.homeName = 'news_index'
               break
-            }
-            case 'author': {
-              this.$router.push({
-                name: 'work_create'
-              })
+            case 'author':
+              this.$config.homeName = 'work_create'
               break
-            }
-            default: {
-              this.$router.push({
-                name: 'news_create'
-              })
-            }
+            default:
+              this.$config.homeName = 'news_create'
           }
+          this.$router.push({
+            name: this.$config.homeName
+          })
         })
       })
     }

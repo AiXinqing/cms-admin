@@ -44,7 +44,7 @@
           @click="commands.heading({ level: 2 })"
           title="小标题"
         >
-          <Icon type="md-reorder" />
+          <Icon custom="i-icon i-icon-heading" />
         </div>
         <div
           class="menu-item"
@@ -57,7 +57,7 @@
           :class="{ 'is-active': isActive.ordered_list() }"
           class="menu-item"
           @click="commands.ordered_list"
-          title="有序列"
+          title="有序列表"
         >
           <Icon custom="i-icon i-icon-list-ol" />
         </div>
@@ -65,75 +65,75 @@
           :class="{ 'is-active': isActive.bullet_list() }"
           class="menu-item"
           @click="commands.bullet_list"
-          title="无序列"
+          title="无序列表"
         >
           <Icon custom="i-icon i-icon-list-ul" />
         </div>
         <div
           class="menu-item"
-          @click="commands.createTable({rowsCount: 3, colsCount: 3, withHeaderRow: false })"
           title="新增表格"
+          @click="commands.createTable({rowsCount: 3, colsCount: 3, withHeaderRow: true })"
         >
           <Icon custom="i-icon i-icon-table" />
         </div>
-        <template v-if="isActive.table()">
+        <div v-if="isActive.table()" style="display: inline-flex;">
           <div
             class="menu-item"
             @click="commands.deleteTable"
             title="删除表格"
           >
-            <Icon custom="i-icon i-icon-table" />
+            <Icon custom="i-icon i-icon-table-delete" />
           </div>
           <div
             class="menu-item"
             @click="commands.addColumnBefore"
             title="之前插入一列"
           >
-            <Icon custom="i-icon i-icon-cube" />
+            <Icon custom="i-icon i-icon-insert-col-left" />
           </div>
           <div
             class="menu-item"
             @click="commands.addColumnAfter"
             title="之后插入一列"
           >
-            <Icon custom="i-icon i-icon-cube" />
+            <Icon custom="i-icon i-icon-insert-col-right" />
           </div>
           <div
             class="menu-item"
             @click="commands.deleteColumn"
             title="删除当前列"
           >
-            <Icon custom="i-icon i-icon-cube" />
+            <Icon custom="i-icon i-icon-delete-col" />
           </div>
           <div
             class="menu-item"
             @click="commands.addRowBefore"
             title="之前插入一行"
           >
-            <Icon custom="i-icon i-icon-cube" />
+            <Icon custom="i-icon i-icon-insert-row-above" />
           </div>
           <div
             class="menu-item"
             @click="commands.addRowAfter"
             title="之后插入一行"
           >
-            <Icon custom="i-icon i-icon-cube" />
+            <Icon custom="i-icon i-icon-insert-row-below" />
           </div>
           <div
             class="menu-item"
             @click="commands.deleteRow"
             title="删除当前行"
           >
-            <Icon custom="i-icon i-icon-cube" />
+            <Icon custom="i-icon i-icon-delete-row" />
           </div>
           <div
             class="menu-item"
             @click="commands.toggleCellMerge"
             title="合并单元格"
           >
-            <Icon custom="i-icon i-icon-cube" />
+            <Icon custom="i-icon i-icon-merge-cells" />
           </div>
-        </template>
+        </div>
       </div>
     </editor-menu-bar>
     <editor-content
@@ -249,8 +249,8 @@ export default {
         editable: !this.readonly,
         extensions,
         content: initValue,
-        onUpdate: ({ getJSON }) => {
-          this.$emit('input', JSON.stringify(getJSON()))
+        onBlur: ({ state }) => {
+          this.$emit('input', JSON.stringify(state.doc.toJSON()))
         }
       })
     }
@@ -311,6 +311,10 @@ export default {
 .ProseMirror {
   padding: 5px 10px;
   outline: none;
+
+  &.resize-cursor {
+    cursor: col-resize;
+  }
 
   &:focus {
     outline: none;
@@ -374,6 +378,21 @@ export default {
     &.readonly {
       border-color: transparent;
     }
+
+    table{
+      border-collapse: collapse;
+      width: 100%;
+
+      td,th{
+        min-width: 1em;
+        border: 2px solid #ddd;
+        padding: 3px 5px;
+        vertical-align: top;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        position: relative;
+      }
+    }
   }
 
   p.is-editor-empty:first-child::before {
@@ -383,21 +402,6 @@ export default {
     pointer-events: none;
     height: 0;
     font-style: italic;
-  }
-
-  table{
-    border-collapse: collapse;
-    min-width: 165px !important;
-
-    td,th{
-      min-width: 1em;
-      border: 2px solid #ddd;
-      padding: 3px 5px;
-      vertical-align: top;
-      -webkit-box-sizing: border-box;
-      box-sizing: border-box;
-      position: relative;
-    }
   }
 
   .tableWrapper{

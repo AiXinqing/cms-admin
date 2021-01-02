@@ -86,58 +86,92 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.i-icon-merge-cells:before {
+  content: "\e907";
+}
+.i-icon-heading:before {
+  content: "\e900";
+}
+.i-icon-delete-col:before {
+  content: "\e901";
+}
+.i-icon-delete-row:before {
+  content: "\e902";
+}
+.i-icon-insert-col-left:before {
+  content: "\e903";
+}
+.i-icon-insert-col-right:before {
+  content: "\e904";
+}
+.i-icon-insert-row-above:before {
+  content: "\e905";
+  color: #595959;
+}
+.i-icon-insert-row-below:before {
+  content: "\e906";
+  color: #595959;
+}
+.i-icon-table-delete:before {
+  content: "\e909";
+}
 .i-icon-minus:before {
   content: "\e9a3";
+  color: #615f6c;
 }
-
 .i-icon-text-bold:before {
   content: "\e96a";
+  color: #615f6c;
 }
-
 .i-icon-text-underline:before {
   content: "\e969";
+  color: #615f6c;
 }
-
 .i-icon-text-italic:before {
   content: "\e967";
+  color: #615f6c;
 }
-
 .i-icon-text-strikethrough:before {
   content: "\e968";
+  color: #615f6c;
 }
-
 .i-icon-cube:before {
   content: "\e958";
+  color: #615f6c;
 }
-
 .i-icon-cubes:before {
   content: "\e959";
+  color: #615f6c;
 }
-
 .i-icon-image:before {
   content: "\e95b";
+  color: #615f6c;
 }
-
 .i-icon-video:before {
   content: "\e96b";
+  color: #615f6c;
 }
-
 .i-icon-quote:before {
   content: "\e962";
+  color: #615f6c;
 }
-
 .i-icon-table:before {
   content: "\e964";
+  color: #615f6c;
 }
-
 .i-icon-link:before {
   content: "\e95e";
+  color: #615f6c;
 }
-
 .i-icon-list-ol:before {
   content: "\e95f";
+  color: #615f6c;
 }
-
 .i-icon-list-ul:before {
   content: "\e960";
+  color: #615f6c;
+}
+.i-icon-font:before {
+  content: "\e9bb";
+  color: #615f6c;
 }

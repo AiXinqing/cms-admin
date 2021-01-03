@@ -7,6 +7,11 @@
       <template slot="tabId" slot-scope="{ row }">
         {{ _findTab(row.tabId).tabName }}
       </template>
+      <template slot="publishAt" slot-scope="{ row }">
+        <div>
+          {{ new Date(row.publishTime).toLocaleDateString() }}
+        </div>
+      </template>
       <template slot="actions" slot-scope="{ row }">
         <Button
           v-if="!row.isHot"
@@ -27,7 +32,7 @@
           size="small"
           class="action-button"
           @click="openPreviewNewsModal(row)"
-        >查看内容</Button>
+        >详情</Button>
       </template>
     </Table>
 
@@ -71,6 +76,12 @@ export default {
       key: 'tabId',
       title: '分类名称',
       slot: 'tabId',
+      width: 120
+    },
+    {
+      title: '发布时间',
+      key: 'publishTime',
+      slot: 'publishAt',
       width: 120
     },
     {

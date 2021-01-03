@@ -1,7 +1,7 @@
 <template>
   <div>
     <Table
-      :columns="$options.workHeaders"
+      :columns="workHeaders"
       :data="workList"
     >
       <template slot="type" slot-scope="{ row }">
@@ -66,41 +66,36 @@
 <script>
 import axios from '@/libs/api.request'
 import TipTapEditor from '_c/tiptap'
+import { mapState } from 'vuex'
+
+const WorkHeaders = [
+  {
+    key: 'title',
+    title: '标题'
+  }, {
+    key: 'type',
+    slot: 'type',
+    title: '类别'
+  }, {
+    slot: 'approval',
+    title: '审核状态',
+    key: 'approval'
+  }, {
+    title: '发布时间',
+    key: 'publishTime',
+    slot: 'publishAt'
+  }
+]
+
+const WorkActions = {
+  title: '操作',
+  slot: 'actions'
+}
 
 export default {
   components: {
     TipTapEditor
   },
-
-  workHeaders: [
-    {
-      key: 'id',
-      title: '编号',
-      width: 80
-    }, {
-      key: 'title',
-      title: '标题'
-    }, {
-      key: 'type',
-      slot: 'type',
-      title: '类别'
-    }, {
-      slot: 'approval',
-      title: '审核状态',
-      key: 'approval'
-    }, {
-      title: '发布时间',
-      key: 'publishTime',
-      slot: 'publishAt'
-    }, {
-      key: 'userId',
-      title: '作者',
-      slot: 'author'
-    }, {
-      title: '操作',
-      slot: 'actions'
-    }
-  ],
 
   data () {
     return {
@@ -117,6 +112,25 @@ export default {
   created () {
     this.fetchWorks()
     this.fetchUsers()
+  },
+
+  computed: {
+    ...mapState({
+      currentUser: state => state.user
+    }),
+    workHeaders () {
+      return this.currentUser.access.includes('admin')
+        ? [
+          ...WorkHeaders,
+          {
+            key: 'userId',
+            title: '作者',
+            slot: 'author'
+          },
+          WorkActions
+        ]
+        : [...WorkHeaders, WorkActions]
+    }
   },
 
   methods: {

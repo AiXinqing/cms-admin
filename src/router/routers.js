@@ -235,7 +235,7 @@ export default [
       icon: 'logo-buffer',
       title: '申请',
       hideInBread: true,
-      access: ['author', 'reporter']
+      access: ['reporter', 'none']
     },
     component: Main,
     children: [

@@ -109,17 +109,15 @@ export default {
     }
   },
 
-  created () {
-    this.fetchWorks()
-    this.fetchUsers()
-  },
-
   computed: {
     ...mapState({
       currentUser: state => state.user
     }),
-    workHeaders () {
+    isAdmin () {
       return this.currentUser.access.includes('admin')
+    },
+    workHeaders () {
+      return this.isAdmin
         ? [
           ...WorkHeaders,
           {
@@ -131,6 +129,11 @@ export default {
         ]
         : [...WorkHeaders, WorkActions]
     }
+  },
+
+  created () {
+    this.fetchWorks()
+    this.fetchUsers()
   },
 
   methods: {
@@ -193,7 +196,7 @@ export default {
     },
 
     _shouldApproval (row) {
-      return ![2, 3].includes(row.approval)
+      return this.isAdmin && ![2, 3].includes(row.approval)
     },
 
     _getApprovalText (state) {

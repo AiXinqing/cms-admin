@@ -7,17 +7,7 @@
       <template slot="tabId" slot-scope="{ row }">
         {{ _findTab(row.tabId).tabName }}
       </template>
-      <template slot="approval" slot-scope="{ row }">
-        {{ _getApprovalText(row.approval) }}
-      </template>
       <template slot="actions" slot-scope="{ row }">
-        <Button
-          v-if="![2, 3].includes(row.approval)"
-          type="primary"
-          size="small"
-          class="action-button"
-          @click="openApprovalModal(row)"
-        >审核</Button>
         <Button
           v-if="!row.isHot"
           type="warning"
@@ -84,12 +74,6 @@ export default {
       width: 120
     },
     {
-      key: 'approval',
-      title: '审核状态',
-      slot: 'approval',
-      width: 120
-    },
-    {
       title: '操作',
       width: 300,
       slot: 'actions'
@@ -115,7 +99,6 @@ export default {
   },
 
   methods: {
-
     fetchHeadlines () {
       return axios.request({
         url: '/admin/headerLine/headerLineInfo/list',
@@ -143,36 +126,9 @@ export default {
       })
     },
 
-    openApprovalModal (news) {
-      this.approvalNews = news
-      this.$Modal.confirm({
-        title: `确认通过审核`,
-        okText: `通过`,
-        cancelText: `取消`,
-        onOk: () => {
-          this.approve()
-        }
-      })
-    },
-
     openPreviewNewsModal (news) {
       this.previewNews = news
       this.previewModalVisible = true
-    },
-
-    approve () {
-      axios.request({
-        url: `/admin/news/${this.approvalNews.id}/approve`,
-        method: 'post'
-      }).then(() => {
-        this.approvalNews.approval = 2
-      }).catch(() => {
-        this.$Message.error({
-          content: '通过失败'
-        })
-      }).finally(() => {
-        this.$Modal.remove()
-      })
     },
 
     setAsHot (news) {
@@ -231,17 +187,6 @@ export default {
     _findTab (id) {
       return this.tabs.find(tab => tab.tabId === id) || {
         tabName: ''
-      }
-    },
-
-    _getApprovalText (state) {
-      switch (state) {
-        case 3:
-          return '未通过'
-        case 2:
-          return '已通过'
-        default:
-          return '待审核'
       }
     },
 

@@ -70,6 +70,46 @@ export default [
     ]
   },
   {
+    path: '/users_manage',
+    name: 'users_manage',
+    meta: {
+      icon: 'logo-buffer',
+      title: '用户管理',
+      hideInBread: true,
+      access: ['admin']
+    },
+    component: Main,
+    children: [
+      {
+        path: '',
+        name: 'user_list',
+        meta: {
+          icon: 'logo-buffer',
+          title: '用户管理'
+        },
+        component: () => import('@/view/users/index.vue')
+      },
+      {
+        path: 'role',
+        name: 'user_role',
+        meta: {
+          icon: 'logo-buffer',
+          title: '用户角色'
+        },
+        component: () => import('@/view/users/role.vue')
+      },
+      {
+        path: 'privilege',
+        name: 'user_privilege',
+        meta: {
+          icon: 'logo-buffer',
+          title: '权限管理'
+        },
+        component: () => import('@/view/users/privilege.vue')
+      }
+    ]
+  },
+  {
     path: '/tabs',
     name: 'tabs',
     meta: {

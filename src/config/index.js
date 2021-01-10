@@ -62,5 +62,24 @@ export default {
       value: 4,
       label: '视频'
     }
+  ],
+
+  privilegeList: [
+    {
+      value: '1',
+      label: '发布新闻'
+    },
+    {
+      value: '2',
+      label: '看看号作者'
+    },
+    {
+      value: '3',
+      label: '看看号审核员'
+    },
+    {
+      value: '4',
+      label: '角色管理员'
+    }
   ]
 }
